@@ -1,26 +1,225 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* Stitch palette */
+  --color-error-container: #93000a;
+  --color-surface-container-high: #2a2a2a;
+  --color-tertiary-container: #ffc11e;
+  --color-surface-variant: #353534;
+  --color-primary-fixed: #ffdf9e;
+  --color-on-tertiary: #402d00;
+  --color-secondary-fixed-dim: #e5bfa3;
+  --color-inverse-primary: #795900;
+  --color-surface-container-lowest: #0e0e0e;
+  --color-on-tertiary-fixed-variant: #5c4300;
+  --color-primary: #ffe4af;
+  --color-on-surface: #e5e2e1;
+  --color-surface-tint: #ebc163;
+  --color-secondary-fixed: #ffdcc2;
+  --color-surface-container-highest: #353534;
+  --color-surface: #131313;
+  --color-on-secondary-fixed-variant: #5b412c;
+  --color-tertiary-fixed: #ffdfa0;
+  --color-on-primary-container: #6d5100;
+  --color-on-primary: #3f2e00;
+  --color-inverse-on-surface: #313030;
+  --color-on-surface-variant: #d1c5b2;
+  --color-tertiary: #ffe4b1;
+  --color-on-error-container: #ffdad6;
+  --color-surface-bright: #3a3939;
+  --color-primary-fixed-dim: #ebc163;
+  --color-inverse-surface: #e5e2e1;
+  --color-on-error: #690005;
+  --color-surface-container: #201f1f;
+  --color-on-secondary-container: #d6b195;
+  --color-error: #ffb4ab;
+  --color-surface-container-low: #1c1b1b;
+  --color-tertiary-fixed-dim: #fbbc00;
+  --color-surface-dim: #131313;
+  --color-on-primary-fixed-variant: #5b4300;
+  --color-outline: #9a8f7e;
+  --color-secondary: #e5bfa3;
+  --color-outline-variant: #4e4637;
+  --color-on-tertiary-fixed: #261a00;
+  --color-on-tertiary-container: #6e5100;
+  --color-on-background: #e5e2e1;
+  --color-on-secondary-fixed: #2b1705;
+  --color-on-secondary: #422b17;
+  --color-background: #131313;
+  --color-primary-container: #f0c567;
+  --color-secondary-container: #5e442e;
+  --color-on-primary-fixed: #261a00;
+
+  --radius-DEFAULT: 0.125rem;
+  --radius-lg: 0.25rem;
+  --radius-xl: 0.5rem;
+  --radius-full: 0.75rem;
+
+  --spacing-unit: 8px;
+  --spacing-gutter: 24px;
+  --spacing-margin-desktop: 80px;
+  --spacing-margin-mobile: 20px;
+  --spacing-section-gap: 120px;
+
+  --max-width-container-max: 1440px;
+
+  --font-body-md: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-body-lg: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-headline-lg: var(--font-playfair), ui-serif, Georgia, serif;
+  --font-title-italic: var(--font-playfair), ui-serif, Georgia, serif;
+  --font-headline-lg-mobile: var(--font-playfair), ui-serif, Georgia, serif;
+  --font-display-lg: var(--font-playfair), ui-serif, Georgia, serif;
+  --font-label-caps: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+
+  --text-body-md: 16px;
+  --text-body-md--line-height: 24px;
+  --text-body-md--font-weight: 400;
+
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 28px;
+  --text-body-lg--letter-spacing: 0.01em;
+  --text-body-lg--font-weight: 400;
+
+  --text-headline-lg: 48px;
+  --text-headline-lg--line-height: 56px;
+  --text-headline-lg--font-weight: 600;
+
+  --text-title-italic: 24px;
+  --text-title-italic--line-height: 32px;
+  --text-title-italic--font-weight: 400;
+
+  --text-headline-lg-mobile: 36px;
+  --text-headline-lg-mobile--line-height: 44px;
+  --text-headline-lg-mobile--font-weight: 600;
+
+  --text-display-lg: 72px;
+  --text-display-lg--line-height: 80px;
+  --text-display-lg--letter-spacing: -0.02em;
+  --text-display-lg--font-weight: 700;
+
+  --text-label-caps: 12px;
+  --text-label-caps--line-height: 16px;
+  --text-label-caps--letter-spacing: 0.15em;
+  --text-label-caps--font-weight: 600;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #0a0a0a;
+  color: var(--color-on-background);
+  overflow-x: hidden;
+}
+
+.glass-card {
+  background: rgba(51, 30, 11, 0.2);
+  backdrop-filter: blur(24px);
+  border: 0.5px solid rgba(240, 197, 103, 0.15);
+}
+
+.gold-glow:hover {
+  box-shadow: 0 0 20px rgba(255, 191, 0, 0.15);
+}
+
+.gold-glow-strong:hover {
+  box-shadow: 0 0 20px rgba(255, 191, 0, 0.3);
+}
+
+.amber-glow:hover {
+  box-shadow: 0 0 20px rgba(255, 191, 0, 0.2);
+}
+
+.hero-vignette {
+  background: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(10, 10, 10, 0.8) 100%
+  );
+}
+
+.gold-thread {
+  background: linear-gradient(90deg, transparent, #f0c567, transparent);
+  height: 1px;
+  width: 100%;
+  opacity: 0.3;
+}
+
+.contacts-page-bg {
+  background-color: #0a0a0a;
+  background-image: radial-gradient(
+    circle at 2px 2px,
+    rgba(240, 197, 103, 0.05) 1px,
+    transparent 0
+  );
+  background-size: 40px 40px;
+}
+
+.lang-dropdown-enter {
+  animation: lang-dropdown-in 0.2s ease-out forwards;
+}
+
+@keyframes lang-dropdown-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cart-drawer-enter {
+  animation: cart-drawer-in 0.28s ease-out forwards;
+}
+
+@keyframes cart-drawer-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes why-us-arrow-drift {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(4px, -5px);
+  }
+}
+
+@keyframes why-us-glow-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.04);
+  }
+}
+
+.why-us-arrow-drift {
+  animation: why-us-arrow-drift 5.5s ease-in-out infinite;
+}
+
+.why-us-arrow-drift-delayed {
+  animation: why-us-arrow-drift 6.5s ease-in-out infinite;
+  animation-delay: -1.2s;
+}
+
+.why-us-arrow-drift-slow {
+  animation: why-us-arrow-drift 8s ease-in-out infinite;
+  animation-delay: -2s;
+}
+
+.why-us-center-glow {
+  animation: why-us-glow-pulse 8s ease-in-out infinite;
 }
