@@ -16,7 +16,6 @@ const NAV = [
   { href: "/interior", label: "Интерьер" },
   { href: "/delivery", label: "Доставка" },
   { href: "/reviews", label: "Отзывы" },
-  { href: "/contacts", label: "Контакты" },
 ] as const;
 
 function navActive(pathname: string, href: string) {
@@ -30,26 +29,26 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 z-50 w-full border-b border-primary/15 bg-surface-dim/25 shadow-lg backdrop-blur-xl">
-      <div className="mx-auto flex max-w-container-max items-center justify-between gap-3 px-4 py-3 md:gap-4 md:px-6 lg:px-8">
+    <header className="fixed top-0 z-50 w-full border-b border-white/[0.06] bg-[#0c0805]/55 backdrop-blur-xl">
+      <div className="mx-auto flex max-w-container-max items-center justify-between gap-2 px-3 py-2.5 sm:px-4 md:px-6 lg:px-8">
         <Link
           href="/"
-          className="shrink-0 whitespace-nowrap font-display-lg text-lg font-semibold uppercase tracking-[0.18em] text-primary sm:text-xl"
+          className="shrink-0 whitespace-nowrap font-display-lg text-base font-semibold uppercase tracking-[0.16em] text-on-surface transition-colors hover:text-primary sm:text-lg"
         >
           AURUM
         </Link>
 
-        <nav className="hidden min-w-0 flex-1 justify-center px-2 lg:flex">
-          <ul className="flex flex-nowrap items-center justify-center gap-2 xl:gap-4">
+        <nav className="hidden min-w-0 flex-1 justify-center px-1 lg:flex">
+          <ul className="flex flex-nowrap items-center justify-center gap-1 xl:gap-2">
             {NAV.map((item) => (
               <li key={item.href} className="shrink-0">
                 <Link
                   href={item.href}
                   className={cn(
-                    "whitespace-nowrap font-label-caps text-[10px] uppercase tracking-[0.12em] transition-colors xl:text-[11px] xl:tracking-[0.14em]",
+                    "whitespace-nowrap px-1.5 py-1 font-label-caps text-[10px] uppercase tracking-[0.1em] transition-colors xl:px-2 xl:text-[11px] xl:tracking-[0.12em]",
                     navActive(pathname, item.href)
                       ? "border-b border-primary pb-0.5 text-primary"
-                      : "text-on-surface-variant hover:text-primary",
+                      : "text-on-surface/90 hover:text-primary",
                   )}
                 >
                   {item.label}
@@ -62,7 +61,7 @@ export function Header() {
         <div className="flex shrink-0 items-center gap-2 sm:gap-3">
           <a
             href={contacts.phoneHref}
-            className="hidden whitespace-nowrap font-label-caps text-[11px] uppercase tracking-[0.1em] text-on-surface-variant transition-colors hover:text-primary lg:inline xl:text-xs"
+            className="hidden whitespace-nowrap font-label-caps text-[11px] uppercase tracking-[0.1em] text-on-surface/80 transition-colors hover:text-primary lg:inline xl:text-xs"
           >
             {contacts.phoneDisplay}
           </a>
@@ -96,7 +95,7 @@ export function Header() {
                 onClick={() => setMobileOpen(false)}
                 className={cn(
                   "whitespace-nowrap font-label-caps text-label-caps tracking-[0.15em]",
-                  navActive(pathname, item.href) ? "text-primary" : "text-on-surface-variant",
+                  navActive(pathname, item.href) ? "text-primary" : "text-on-surface/85 hover:text-primary",
                 )}
               >
                 {item.label}

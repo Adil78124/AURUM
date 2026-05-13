@@ -1,5 +1,4 @@
-import { ReviewsCarousel } from "@/components/reviews/ReviewsCarousel";
-import { ReviewForm } from "@/components/reviews/ReviewForm";
+import { ReviewsPageContent } from "@/components/reviews/ReviewsPageContent";
 
 export default function ReviewsPage() {
   return (
@@ -8,7 +7,7 @@ export default function ReviewsPage() {
         <p className="mb-2 font-label-caps text-label-caps uppercase text-primary">
           Голоса наших гостей
         </p>
-        <h1 className="font-display-lg text-display-lg text-primary">Отзывы посетителей</h1>
+        <h1 className="font-display-lg text-display-lg text-on-surface">Отзывы посетителей</h1>
         <div className="mx-auto mt-6 h-px w-24 bg-primary/40" />
       </div>
 
@@ -17,11 +16,7 @@ export default function ReviewsPage() {
         формат визита.
       </p>
 
-      <ReviewsCarousel />
-
-      <div className="mt-section-gap">
-        <ReviewForm />
-      </div>
+      <ReviewsPageContent />
     </main>
   );
 }

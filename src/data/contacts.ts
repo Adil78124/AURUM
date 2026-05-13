@@ -3,7 +3,11 @@ export const contacts = {
   phoneHref: "tel:+77777777777",
   emailDisplay: "hello@aurum.kz",
   emailHref: "mailto:hello@aurum.kz",
-  addressLines: ["Бизнес-центр «Nurly Тау»", "ул. Достык 248, блок A", "г. Алматы, Казахстан"],
+  addressLines: [
+    "Бизнес-центр «NURly Tau»",
+    "ул. Достык 248, блок А",
+    "г. Алматы, Казахстан",
+  ],
   instagramLabel: "Instagram",
   instagramHref: "https://instagram.com/",
   whatsappLabel: "WhatsApp",
@@ -14,7 +18,9 @@ export const contacts = {
   hoursWeekend: "12:00 — 03:00",
   parking:
     "Гостевая парковка у входа в комплекс. Сообщите номер автомобиля при бронировании — мы подготовим пропуск.",
-  mapImageSrc:
-    "https://lh3.googleusercontent.com/aida-public/AB6AXuA60HG6DKJBAq0QiRMOl3cOXqt9PvoAxewf05Q3-_YI8yFe0jJTIF4L6eYCM-680wyWweiL5iX7ZeWU8eIS5HSzR9gAscPFxrM84LRlJy8ejbDo_CMz-YOdMz_RiwOP_P4JCt-_vfBn4lRQbsOzUAZBGQPuUNyzEhxcBwVhs07MNYqHq_DWdDR87_47znqpWdCIiGOeKtVkFkIi6StoLzc0HTmytMFxve_pMjOPSWlM9klodNMeMD9feU14iR4tbxFiMHLFGScTjXM",
-  mapImageAlt: "Карта расположения ресторана AURUM",
+  /** Google Maps embed (без API key) */
+  mapEmbedSrc:
+    "https://www.google.com/maps?q=Almaty%20Kazakhstan%20Dostyk%20Avenue&output=embed",
+  /** Та же точка в полном интерфейсе Google Maps */
+  mapOpenUrl: "https://www.google.com/maps?q=Almaty%20Kazakhstan%20Dostyk%20Avenue",
 };

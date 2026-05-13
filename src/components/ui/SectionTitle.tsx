@@ -24,7 +24,7 @@ export function SectionTitle({
           {eyebrow}
         </span>
       ) : null}
-      <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">
+      <h2 className="font-headline-lg text-headline-lg-mobile text-on-surface md:text-headline-lg">
         {title}
       </h2>
       <div

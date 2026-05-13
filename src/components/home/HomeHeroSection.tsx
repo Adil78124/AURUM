@@ -20,14 +20,14 @@ export function HomeHeroSection() {
           className="object-cover"
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-black/50 hero-vignette" />
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-56 bg-gradient-to-b from-transparent via-[#0a0a0a]/85 to-[#0a0a0a]" />
+        <div className="absolute inset-0 bg-[#1a0f08]/55 hero-vignette" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-56 bg-gradient-to-b from-transparent via-[#0c0805]/88 to-[#0a0705]" />
       </div>
       <div className="relative z-10 mx-auto max-w-4xl px-4 text-center">
-        <p className="mb-2 font-title-italic text-title-italic italic text-primary">
+        <p className="mb-3 font-title-italic text-lg italic leading-snug tracking-[0.02em] text-on-surface antialiased sm:text-xl md:text-2xl md:font-semibold">
           Welcome to Our Restaurant
         </p>
-        <h1 className="mb-12 font-display-lg text-[56px] leading-none tracking-[0.2em] text-primary sm:text-[80px] md:text-[120px]">
+        <h1 className="mb-12 font-display-lg text-[56px] font-black leading-none tracking-[0.2em] text-on-surface antialiased drop-shadow-[0_2px_24px_rgba(0,0,0,0.45)] sm:text-[80px] md:text-[120px]">
           AURUM
         </h1>
         <div className="flex flex-col justify-center gap-6 md:flex-row">
@@ -41,7 +41,7 @@ export function HomeHeroSection() {
           <button
             type="button"
             onClick={openVip}
-            className="border border-primary px-12 py-5 font-label-caps text-label-caps uppercase tracking-widest text-primary transition-all hover:bg-primary/10"
+            className="border border-primary/80 px-12 py-5 font-label-caps text-label-caps uppercase tracking-widest text-on-surface transition-all hover:border-primary hover:bg-primary/10 hover:text-on-surface"
           >
             VIP кабинки
           </button>

@@ -1,13 +1,9 @@
 import Image from "next/image";
-import { Quote } from "lucide-react";
-import { WhyUsSection } from "@/components/home/WhyUsSection";
+import { AboutChefSection } from "@/components/about/AboutChefSection";
+import { AboutQuoteSection } from "@/components/about/AboutQuoteSection";
 import { AboutCtaSection } from "@/components/about/AboutCtaSection";
 
-const HERO_IMG =
-  "https://lh3.googleusercontent.com/aida-public/AB6AXuALFAVrdwNbcEnWbgleRyoCqjTVMMe8agDyY0jSMGOztUblwqp7G_1f4LBhil7yiKI6-LjT6ZUVlTMkytPE_nJDjrBnqgPh9R6n7fxQZfQmrzwoNg18u25CM6BfTnZTUhASdtD98yaoGWz264EuDCtaqEEk3UljciY1i2mzK09Mp9pbm0zfAbEt5feWZCB1CHQ6rlXQk9GpH-q7t2pZ-6FLx9yWS-S0rL2-wLC3UcKvhmYQgBU2IzkXW7x4wTLN-bkxDCREw5DcbsI";
-
-const CHEF_IMG =
-  "https://lh3.googleusercontent.com/aida-public/AB6AXuC73axarFVWnwa_kZn_QZo4IsQ8X0RSk8JrnxgUrWWvcsxu5eOYxWnCPhvdbBrhhhOIkpzTwK4AZREs3a6teEpKeCI0o7nATT0MObXe40SdtAYs0kPExOgScu32VvI7LiO3G8W3z_VCQwHCj3tGWWEh_yGbK23Ylga9pA_ZiOJKcLO2caWXhfimBk53q94b_lsDzXDfbwoUFb6Jkoj6VKQVDjorwUJ8V45pQ430Ln_bRkRC6P6XLuXXWOu3uj-alYM6fnzcXYFA8dY";
+const HERO_IMG = "/IMG_4924.PNG";
 
 export default function AboutPage() {
   return (
@@ -18,7 +14,7 @@ export default function AboutPage() {
             <span className="font-label-caps text-label-caps uppercase tracking-[0.3em] text-primary">
               Искусство гостеприимства
             </span>
-            <h1 className="font-display-lg text-display-lg leading-tight text-primary">
+            <h1 className="font-display-lg text-display-lg leading-tight text-on-surface">
               AURUM: Золотой стандарт вкуса
             </h1>
           </div>
@@ -35,15 +31,15 @@ export default function AboutPage() {
           </div>
         </div>
         <div className="relative md:col-span-7">
-          <div className="gold-glow aspect-[4/5] overflow-hidden md:aspect-[16/10]">
+          <div className="gold-glow aspect-[4/5] overflow-hidden rounded-lg md:aspect-[16/10]">
             <Image
               src={HERO_IMG}
               alt="Интерьер и сервировка AURUM"
               width={1200}
               height={750}
-              className="h-full w-full object-cover grayscale-[20%] transition-all duration-1000 hover:grayscale-0"
+              className="h-full w-full object-cover transition-all duration-1000 hover:scale-[1.02]"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-60" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0c0805] via-transparent to-transparent opacity-70" />
           </div>
           <div className="glass-card absolute -bottom-8 -left-8 hidden max-w-xs border border-primary/20 p-8 lg:block">
             <span className="font-title-italic text-title-italic italic text-primary">Est. 2014</span>
@@ -61,7 +57,7 @@ export default function AboutPage() {
               <span className="font-label-caps text-label-caps uppercase tracking-[0.25em] text-primary">
                 О ресторане
               </span>
-              <h2 className="mt-4 font-headline-lg text-headline-lg text-primary">
+              <h2 className="mt-4 font-headline-lg text-headline-lg text-on-surface">
                 Пространство для ценителей вкуса
               </h2>
             </div>
@@ -85,40 +81,9 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <WhyUsSection />
+      <AboutChefSection />
 
-      <section className="relative overflow-hidden py-section-gap">
-        <div className="relative z-10 mx-auto max-w-4xl px-margin-mobile text-center md:px-0">
-          <Quote
-            className="absolute -top-12 left-0 h-32 w-32 text-primary/20 opacity-50"
-            strokeWidth={1}
-            aria-hidden
-          />
-          <p className="font-title-italic text-3xl italic leading-snug text-on-surface md:text-5xl">
-            «Золото — это не только блеск в интерьере, это ценность моментов, проведенных за нашим
-            столом.»
-          </p>
-          <div className="mt-12 flex flex-col items-center">
-            <div className="mb-4 h-16 w-16 overflow-hidden rounded-full border-2 border-primary/30 p-1">
-              <Image
-                src={CHEF_IMG}
-                alt="Шеф-повар AURUM"
-                width={64}
-                height={64}
-                className="h-full w-full rounded-full object-cover"
-              />
-            </div>
-            <span className="font-label-caps text-label-caps uppercase text-primary">
-              Марк Де&apos;Оро
-            </span>
-            <span className="mt-1 font-body-md text-sm text-on-surface-variant">
-              Основатель и шеф-повар
-            </span>
-          </div>
-        </div>
-        <div className="absolute -right-1/4 top-0 h-[600px] w-[600px] rounded-full bg-primary/5 blur-[120px]" />
-        <div className="absolute -bottom-0 -left-1/4 h-[400px] w-[400px] rounded-full bg-primary/5 blur-[100px]" />
-      </section>
+      <AboutQuoteSection />
 
       <AboutCtaSection />
     </main>

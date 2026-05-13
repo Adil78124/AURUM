@@ -1,6 +1,6 @@
 import { Camera, MessageCircle } from "lucide-react";
-import Image from "next/image";
 import { contacts } from "@/data/contacts";
+import { ContactMapEmbed } from "@/components/maps/ContactMapEmbed";
 
 export function ContactSection() {
   return (
@@ -76,16 +76,11 @@ export function ContactSection() {
           </div>
         </div>
       </div>
-      <div className="relative h-[500px] w-full grayscale transition-all duration-700 hover:grayscale-0 lg:h-auto lg:min-h-[560px] lg:w-1/2">
-        <Image
-          src={contacts.mapImageSrc}
-          alt={contacts.mapImageAlt}
-          fill
-          className="object-cover"
-          sizes="(max-width:1024px) 100vw, 50vw"
-        />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-background/40 to-transparent" />
-        <div className="pointer-events-none absolute inset-0 border-[20px] border-surface/20" />
+      <div className="relative w-full overflow-hidden border-t border-primary/10 p-6 lg:w-1/2 lg:border-l-0 lg:border-t-0 lg:p-8">
+        <p className="mb-4 font-label-caps text-label-caps uppercase tracking-widest text-primary/60 lg:hidden">
+          Карта
+        </p>
+        <ContactMapEmbed title="Карта — ресторан AURUM, Алматы" />
       </div>
     </section>
   );

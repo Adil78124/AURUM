@@ -1,6 +1,7 @@
 import { Camera, MessageCircle, Send } from "lucide-react";
 import Link from "next/link";
 import { contacts } from "@/data/contacts";
+import { ContactMapEmbed } from "@/components/maps/ContactMapEmbed";
 
 const link =
   "font-body-md text-body-md text-on-surface-variant transition-colors duration-300 hover:text-primary";
@@ -71,6 +72,11 @@ export function Footer() {
             <p className="font-label-caps text-label-caps text-primary">Парковка</p>
             <p className="text-sm text-on-surface-variant">{contacts.parking}</p>
           </div>
+        </div>
+
+        <div className="border-b border-primary/10 py-10">
+          <p className="mb-4 font-label-caps text-label-caps text-primary">Карта</p>
+          <ContactMapEmbed />
         </div>
 
         <div className="flex flex-col items-start justify-between gap-6 border-t border-primary/10 pt-10 md:flex-row md:items-center">

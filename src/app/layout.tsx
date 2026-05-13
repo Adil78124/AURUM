@@ -17,7 +17,7 @@ const manrope = Manrope({
 const playfair = Playfair_Display({
   subsets: ["latin", "cyrillic"],
   variable: "--font-playfair",
-  weight: ["400", "600", "700"],
+  weight: ["400", "600", "700", "800", "900"],
   style: ["normal", "italic"],
 });
 

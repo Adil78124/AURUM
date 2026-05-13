@@ -2,8 +2,10 @@ export type Review = {
   id: string;
   author: string;
   date: string;
-  avatarSrc: string;
+  /** Omit for locally submitted reviews (placeholder avatar in UI). */
+  avatarSrc?: string;
   text: string;
+  rating?: number;
 };
 
 export const reviews: Review[] = [

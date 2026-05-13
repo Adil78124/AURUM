@@ -11,8 +11,8 @@ const ghostBtn =
 
 export default function DeliveryPage() {
   return (
-    <main className="overflow-x-hidden bg-[#0a0a0a] font-body-md text-on-surface">
-      <section className="relative flex min-h-[780px] w-full items-center overflow-hidden pb-32 pt-28 md:min-h-[921px] md:pb-40 md:pt-32">
+    <main className="overflow-x-hidden bg-[#0c0805] font-body-md text-on-surface">
+      <section className="relative flex min-h-[760px] w-full items-center overflow-hidden pb-28 pt-28 md:min-h-[900px] md:pb-36 md:pt-32">
         <div className="absolute inset-0 z-0">
           <Image
             src={HERO_IMG}
@@ -22,12 +22,12 @@ export default function DeliveryPage() {
             className="object-cover object-center grayscale-[15%]"
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/25" />
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-48 bg-gradient-to-b from-transparent via-[#0a0a0a]/80 to-[#0a0a0a]" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0a0604]/90 via-[#120a06]/55 to-black/20" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-48 bg-gradient-to-b from-transparent via-[#0c0805]/82 to-[#0a0705]" />
         </div>
         <div className="relative z-10 mx-auto w-full max-w-container-max px-margin-mobile md:px-margin-desktop">
           <div className="max-w-2xl">
-            <h1 className="mb-4 font-display-lg text-headline-lg-mobile text-on-surface md:text-display-lg">
+            <h1 className="mb-5 font-display-lg text-headline-lg-mobile text-on-surface md:text-display-lg">
               Доставка <span className="text-primary">AURUM</span>
             </h1>
             <p className="mb-10 max-w-xl font-body-lg text-body-lg text-on-surface-variant">
@@ -46,18 +46,18 @@ export default function DeliveryPage() {
         </div>
       </section>
 
-      <section className="relative z-20 -mt-24 px-margin-mobile pb-4 md:-mt-32 md:px-margin-desktop">
-        <div className="mx-auto max-w-container-max rounded-t-[2.5rem] bg-[#ebe8e2] px-6 py-14 text-zinc-900 shadow-[0_-20px_60px_rgba(0,0,0,0.35)] md:px-16 md:py-20">
-          <div className="mb-12 flex items-center justify-center gap-6">
+      <section className="relative z-20 -mt-20 px-margin-mobile pb-6 md:-mt-28 md:px-margin-desktop">
+        <div className="mx-auto max-w-container-max rounded-t-[2.5rem] bg-[#e8e4dc] px-6 py-16 text-zinc-900 shadow-[0_-20px_60px_rgba(0,0,0,0.35)] md:px-16 md:py-20">
+          <div className="mb-14 flex items-center justify-center gap-6">
             <div className="hidden h-px flex-1 bg-gradient-to-r from-transparent via-[#c08431]/60 to-transparent md:block" />
             <h2 className="text-center font-headline-lg text-headline-lg-mobile italic text-[#3a2a1a] md:text-headline-lg">
               Доставка AURUM — идеальный вариант, если:
             </h2>
             <div className="hidden h-px flex-1 bg-gradient-to-r from-transparent via-[#c08431]/60 to-transparent md:block" />
           </div>
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-12">
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-x-14 md:gap-y-12">
             <div className="flex gap-5">
-              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white shadow-sm">
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#f2efe8] shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
                 <Soup className="h-7 w-7 text-[#3a2a1a]" strokeWidth={1.5} aria-hidden />
               </div>
               <div>
@@ -71,7 +71,7 @@ export default function DeliveryPage() {
               </div>
             </div>
             <div className="flex gap-5">
-              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white shadow-sm">
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#f2efe8] shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
                 <CookingPot className="h-7 w-7 text-[#3a2a1a]" strokeWidth={1.5} aria-hidden />
               </div>
               <div>
@@ -82,7 +82,7 @@ export default function DeliveryPage() {
               </div>
             </div>
             <div className="flex gap-5">
-              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white shadow-sm">
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#f2efe8] shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
                 <Laptop className="h-7 w-7 text-[#3a2a1a]" strokeWidth={1.5} aria-hidden />
               </div>
               <div>
@@ -95,7 +95,7 @@ export default function DeliveryPage() {
               </div>
             </div>
             <div className="flex gap-5">
-              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white shadow-sm">
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#f2efe8] shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
                 <PartyPopper className="h-7 w-7 text-[#3a2a1a]" strokeWidth={1.5} aria-hidden />
               </div>
               <div>

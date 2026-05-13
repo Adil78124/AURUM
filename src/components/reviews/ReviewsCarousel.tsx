@@ -1,15 +1,19 @@
 "use client";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useCallback, useState } from "react";
-import { reviews } from "@/data/reviews";
+import { useCallback, useEffect, useState } from "react";
+import type { Review } from "@/data/reviews";
 import { ReviewCard } from "@/components/reviews/ReviewCard";
 
 const VISIBLE = 3;
 
-export function ReviewsCarousel() {
+export function ReviewsCarousel({ items }: { items: Review[] }) {
   const [start, setStart] = useState(0);
-  const maxStart = Math.max(0, reviews.length - VISIBLE);
+  const maxStart = Math.max(0, items.length - VISIBLE);
+
+  useEffect(() => {
+    setStart((s) => Math.min(s, maxStart));
+  }, [maxStart, items.length]);
 
   const prev = useCallback(() => {
     setStart((s) => Math.max(0, s - 1));
@@ -19,7 +23,7 @@ export function ReviewsCarousel() {
     setStart((s) => Math.min(maxStart, s + 1));
   }, [maxStart]);
 
-  const slice = reviews.slice(start, start + VISIBLE);
+  const slice = items.slice(start, start + VISIBLE);
   const pad = VISIBLE - slice.length;
   const padded = pad > 0 ? [...slice, ...Array.from({ length: pad }, () => null)] : slice;
 
