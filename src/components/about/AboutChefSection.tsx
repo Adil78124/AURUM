@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { MotionReveal } from "@/components/motion/MotionReveal";
 
 const CHEF_IMAGE = "/IMG_4925.PNG";
 
@@ -6,7 +9,7 @@ export function AboutChefSection() {
   return (
     <section className="border-y border-primary/10 bg-[#0f0a06] py-section-gap px-margin-mobile md:px-margin-desktop">
       <div className="mx-auto max-w-container-max">
-        <div className="mb-12 max-w-2xl">
+        <MotionReveal variant="fadeUp" className="mb-12 max-w-2xl">
           <span className="font-label-caps text-label-caps uppercase tracking-[0.28em] text-primary">
             Шеф-повар
           </span>
@@ -14,10 +17,10 @@ export function AboutChefSection() {
             Кухня AURUM
           </h2>
           <div className="mt-6 h-px w-24 bg-primary/45 interior-gold-line" />
-        </div>
+        </MotionReveal>
 
         <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
-          <div className="relative lg:col-span-5">
+          <MotionReveal variant="slideLeft" className="relative lg:col-span-5">
             <div className="pointer-events-none absolute -inset-3 rounded-lg border border-primary/15" />
             <div className="pointer-events-none absolute -inset-1 bg-gradient-to-tr from-amber-900/20 via-transparent to-transparent" />
             <div className="relative overflow-hidden rounded-lg">
@@ -32,9 +35,9 @@ export function AboutChefSection() {
               </div>
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0a0604]/90 via-[#0a0604]/15 to-transparent" />
             </div>
-          </div>
+          </MotionReveal>
 
-          <div className="space-y-8 lg:col-span-7">
+          <MotionReveal variant="slideRight" className="space-y-8 lg:col-span-7">
             <div>
               <p className="font-headline-lg text-2xl text-on-surface md:text-3xl">Шеф-повар AURUM</p>
               <p className="mt-2 font-body-md text-on-surface-variant">
@@ -60,7 +63,7 @@ export function AboutChefSection() {
                 уверенным по качеству.
               </p>
             </div>
-          </div>
+          </MotionReveal>
         </div>
       </div>
     </section>

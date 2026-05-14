@@ -1,10 +1,12 @@
 "use client";
 
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { MessageSquare, Star } from "lucide-react";
 import { useState } from "react";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { cn } from "@/lib/cn";
 import type { Review } from "@/data/reviews";
+import { premiumEase, staggerItem, staggerParent, viewportOnce } from "@/lib/animations";
 
 type Props = {
   onSubmitted?: (review: Review) => void;
@@ -16,17 +18,28 @@ export function ReviewForm({ onSubmitted }: Props) {
   const [contact, setContact] = useState("");
   const [text, setText] = useState("");
   const [success, setSuccess] = useState(false);
+  const reduced = useReducedMotion();
 
   return (
     <GlassCard className="relative mx-auto max-w-2xl overflow-hidden p-12">
       <div className="absolute right-0 top-0 p-4 opacity-10">
         <MessageSquare className="h-32 w-32 text-primary" strokeWidth={1} aria-hidden />
       </div>
-      <h3 className="mb-8 text-center font-headline-lg text-headline-lg-mobile text-on-surface">
+      <motion.h3
+        className="mb-8 text-center font-headline-lg text-headline-lg-mobile text-on-surface"
+        initial={reduced ? { opacity: 1 } : { opacity: 0, y: 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={viewportOnce}
+        transition={{ duration: reduced ? 0.28 : 0.72, ease: premiumEase }}
+      >
         Оставить отзыв
-      </h3>
-      <form
+      </motion.h3>
+      <motion.form
         className="space-y-8"
+        variants={staggerParent(Boolean(reduced), 0.1, 0.04)}
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewportOnce}
         onSubmit={(e) => {
           e.preventDefault();
           const trimmedName = name.trim() || "Гость";
@@ -50,7 +63,10 @@ export function ReviewForm({ onSubmitted }: Props) {
           window.setTimeout(() => setSuccess(false), 8000);
         }}
       >
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+        <motion.div
+          className="grid grid-cols-1 gap-8 md:grid-cols-2"
+          variants={staggerItem(Boolean(reduced))}
+        >
           <div className="border-b border-primary/30 py-2 transition-colors focus-within:border-primary">
             <label className="mb-1 block font-title-italic text-sm italic text-on-surface-variant">
               Имя
@@ -75,8 +91,11 @@ export function ReviewForm({ onSubmitted }: Props) {
               onChange={(e) => setContact(e.target.value)}
             />
           </div>
-        </div>
-        <div className="border-b border-primary/30 py-2 transition-colors focus-within:border-primary">
+        </motion.div>
+        <motion.div
+          className="border-b border-primary/30 py-2 transition-colors focus-within:border-primary"
+          variants={staggerItem(Boolean(reduced))}
+        >
           <label className="mb-1 block font-title-italic text-sm italic text-on-surface-variant">
             Ваш отзыв
           </label>
@@ -89,8 +108,11 @@ export function ReviewForm({ onSubmitted }: Props) {
             onChange={(e) => setText(e.target.value)}
             required
           />
-        </div>
-        <div className="flex flex-col items-center space-y-6">
+        </motion.div>
+        <motion.div
+          className="flex flex-col items-center space-y-6"
+          variants={staggerItem(Boolean(reduced))}
+        >
           <div className="flex space-x-2 text-primary/40">
             {[1, 2, 3, 4, 5].map((n) => (
               <button
@@ -117,17 +139,24 @@ export function ReviewForm({ onSubmitted }: Props) {
           >
             Отправить отзыв
           </button>
-          {success ? (
-            <p
-              className="max-w-md text-center font-body-md text-on-surface"
-              role="status"
-            >
-              Спасибо! Отзыв добавлен в ленту на этой странице. Пока без сервера — данные не
-              отправляются в CRM и хранятся только у вас в браузере до обновления страницы.
-            </p>
-          ) : null}
-        </div>
-      </form>
+          <AnimatePresence>
+            {success ? (
+              <motion.p
+                key="success"
+                className="max-w-md text-center font-body-md text-on-surface"
+                role="status"
+                initial={{ opacity: 0, y: 8, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: reduced ? 0.22 : 0.45, ease: premiumEase }}
+              >
+                Спасибо! Отзыв добавлен в ленту на этой странице. Пока без сервера — данные не
+                отправляются в CRM и хранятся только у вас в браузере до обновления страницы.
+              </motion.p>
+            ) : null}
+          </AnimatePresence>
+        </motion.div>
+      </motion.form>
     </GlassCard>
   );
 }

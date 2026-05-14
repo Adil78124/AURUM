@@ -1,7 +1,14 @@
 "use client";
 
+import { motion, useReducedMotion } from "framer-motion";
+import { premiumEase } from "@/lib/animations";
 import { cn } from "@/lib/cn";
-import { useInViewOnce } from "@/hooks/useInViewOnce";
+
+const interiorViewport = {
+  once: true,
+  margin: "-10% 0px -8% 0px",
+  amount: 0.12,
+} as const;
 
 export function InteriorReveal({
   children,
@@ -10,14 +17,20 @@ export function InteriorReveal({
   children: React.ReactNode;
   className?: string;
 }) {
-  const { ref, visible } = useInViewOnce();
+  const reduced = useReducedMotion();
 
   return (
-    <div
-      ref={ref}
-      className={cn("interior-reveal", visible && "interior-reveal-visible", className)}
+    <motion.div
+      className={cn(className)}
+      initial={{ opacity: 0, y: reduced ? 0 : 26 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={interiorViewport}
+      transition={{
+        duration: reduced ? 0.34 : 0.88,
+        ease: premiumEase,
+      }}
     >
       {children}
-    </div>
+    </motion.div>
   );
 }

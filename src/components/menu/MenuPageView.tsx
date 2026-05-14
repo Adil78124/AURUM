@@ -1,15 +1,17 @@
 "use client";
 
+import { motion, useReducedMotion } from "framer-motion";
 import { useMemo, useState } from "react";
-import {
-  menuItems,
-  type MenuCategoryId,
-} from "@/data/menu";
+import { menuItems, type MenuCategoryId } from "@/data/menu";
 import { MenuCategoryNav } from "@/components/menu/MenuCategoryNav";
 import { MenuCard } from "@/components/menu/MenuCard";
+import { MotionGoldLine } from "@/components/motion/MotionGoldLine";
+import { MotionReveal } from "@/components/motion/MotionReveal";
+import { premiumEase, staggerItem, staggerParent, viewportOnce } from "@/lib/animations";
 
 export function MenuPageView() {
   const [active, setActive] = useState<MenuCategoryId>("starters");
+  const reduced = useReducedMotion();
 
   const filtered = useMemo(
     () => menuItems.filter((i) => i.category === active),
@@ -19,20 +21,36 @@ export function MenuPageView() {
   return (
     <>
       <div className="mb-section-gap text-center">
-        <h1 className="mb-4 font-display-lg text-display-lg uppercase text-primary">
+        <motion.h1
+          className="mb-4 font-display-lg text-display-lg uppercase text-primary"
+          initial={reduced ? { opacity: 0 } : { opacity: 0, y: 22 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={viewportOnce}
+          transition={{ duration: reduced ? 0.32 : 0.85, ease: premiumEase }}
+        >
           МЕНЮ AURUM
-        </h1>
-        <div className="gold-thread mb-8" />
-        <p className="mx-auto max-w-2xl font-title-italic italic text-on-surface-variant">
-          Искусство гастрономии в атмосфере абсолютной приватности и роскоши.
-        </p>
+        </motion.h1>
+        <MotionGoldLine className="gold-thread mb-8" origin="center" />
+        <MotionReveal variant="fadeIn" delay={0.08}>
+          <p className="mx-auto max-w-2xl font-title-italic italic text-on-surface-variant">
+            Искусство гастрономии в атмосфере абсолютной приватности и роскоши.
+          </p>
+        </MotionReveal>
       </div>
       <MenuCategoryNav active={active} onChange={setActive} />
-      <div className="grid grid-cols-1 gap-gutter md:grid-cols-2 lg:grid-cols-3">
+      <motion.div
+        key={active}
+        className="grid grid-cols-1 gap-gutter md:grid-cols-2 lg:grid-cols-3"
+        variants={staggerParent(Boolean(reduced), 0.1, 0.04)}
+        initial="hidden"
+        animate="visible"
+      >
         {filtered.map((item) => (
-          <MenuCard key={item.id} item={item} />
+          <motion.div key={item.id} variants={staggerItem(Boolean(reduced))}>
+            <MenuCard item={item} />
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </>
   );
 }

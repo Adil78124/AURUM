@@ -1,14 +1,16 @@
 "use client";
 
 import Image from "next/image";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Play, X } from "lucide-react";
 import { useState } from "react";
 import { InteriorReveal } from "@/components/interior/InteriorReveal";
-
-const PREVIEW = "/IMG_4924.PNG";
+import { interiorVirtualTourPreviewSrc } from "@/data/interior";
+import { premiumEase } from "@/lib/animations";
 
 export function VirtualTourSection() {
   const [open, setOpen] = useState(false);
+  const reduced = useReducedMotion();
 
   return (
     <>
@@ -21,20 +23,22 @@ export function VirtualTourSection() {
             <button
               type="button"
               onClick={() => setOpen(true)}
-              className="group relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-primary/20 shadow-2xl"
+              className="virtual-tour-preview-zoom group relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-primary/20 shadow-2xl"
               aria-haspopup="dialog"
               aria-expanded={open}
             >
-              <Image
-                src={PREVIEW}
-                alt="Превью интерьера AURUM"
-                fill
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
+              <div className="vt-zoom-target relative h-full w-full">
+                <Image
+                  src={interiorVirtualTourPreviewSrc}
+                  alt="Превью интерьера AURUM"
+                  fill
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+              </div>
               <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-black/35" />
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="relative flex h-20 w-20 items-center justify-center rounded-full border border-primary/50 bg-black/40 shadow-[0_0_40px_rgba(240,197,103,0.35)] backdrop-blur-md transition-transform duration-500 group-hover:scale-110">
+                <span className="vt-play-pulse relative flex h-20 w-20 items-center justify-center rounded-full border border-primary/50 bg-black/40 shadow-[0_0_40px_rgba(240,197,103,0.35)] backdrop-blur-md transition-transform duration-500 group-hover:scale-110">
                   <Play className="ml-1 h-9 w-9 text-primary" fill="currentColor" strokeWidth={0} aria-hidden />
                 </span>
               </div>
@@ -63,51 +67,67 @@ export function VirtualTourSection() {
         </section>
       </InteriorReveal>
 
-      {open ? (
-        <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4 backdrop-blur-md"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="virtual-tour-title"
-        >
-          <div className="relative max-h-[90vh] w-full max-w-4xl overflow-hidden rounded-2xl border border-primary/25 bg-[#0f0a06]/95 shadow-2xl">
-            <button
-              type="button"
-              className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-black/50 text-on-surface transition hover:bg-black/70"
-              onClick={() => setOpen(false)}
-              aria-label="Закрыть"
+      <AnimatePresence>
+        {open ? (
+          <motion.div
+            key="vt-dialog"
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4 backdrop-blur-md"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="virtual-tour-title"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: reduced ? 0.2 : 0.4, ease: premiumEase }}
+          >
+            <motion.div
+              className="relative max-h-[90vh] w-full max-w-4xl overflow-hidden rounded-2xl border border-primary/25 bg-[#0f0a06]/95 shadow-2xl"
+              initial={reduced ? { opacity: 0 } : { opacity: 0, scale: 0.96, y: 12 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={reduced ? { opacity: 0 } : { opacity: 0, scale: 0.97, y: 8 }}
+              transition={{ duration: reduced ? 0.22 : 0.5, ease: premiumEase }}
             >
-              <X className="h-5 w-5" strokeWidth={1.5} />
-            </button>
-            <div className="relative aspect-video w-full">
-              <Image
-                src={PREVIEW}
-                alt="Превью интерьера для виртуального тура"
-                fill
-                className="object-cover opacity-60"
-                sizes="100vw"
-              />
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-6 p-8 text-center">
-                <Play className="h-14 w-14 text-primary/90" strokeWidth={1} aria-hidden />
-                <h3 id="virtual-tour-title" className="font-headline-lg text-headline-lg-mobile text-on-surface md:text-headline-lg">
-                  Тур скоро будет доступен
-                </h3>
-                <p className="max-w-md font-body-md text-on-surface-variant">
-                  Мы подключаем панораму 2GIS / 360°. Если нужен тур сейчас — администратор проведёт
-                  вас по залу при бронировании.
-                </p>
-                <button
-                  type="button"
-                  onClick={() => setOpen(false)}
-                  className="mt-2 border border-primary/40 px-8 py-3 font-label-caps text-label-caps uppercase tracking-widest text-primary transition hover:bg-primary/10"
-                >
-                  Понятно
-                </button>
+              <button
+                type="button"
+                className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-black/50 text-on-surface transition hover:bg-black/70"
+                onClick={() => setOpen(false)}
+                aria-label="Закрыть"
+              >
+                <X className="h-5 w-5" strokeWidth={1.5} />
+              </button>
+              <div className="relative aspect-video w-full">
+                <Image
+                  src={interiorVirtualTourPreviewSrc}
+                  alt="Превью интерьера для виртуального тура"
+                  fill
+                  className="object-cover opacity-60"
+                  sizes="100vw"
+                />
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-6 p-8 text-center">
+                  <Play className="h-14 w-14 text-primary/90" strokeWidth={1} aria-hidden />
+                  <h3
+                    id="virtual-tour-title"
+                    className="font-headline-lg text-headline-lg-mobile text-on-surface md:text-headline-lg"
+                  >
+                    Тур скоро будет доступен
+                  </h3>
+                  <p className="max-w-md font-body-md text-on-surface-variant">
+                    Мы подключаем панораму 2GIS / 360°. Если нужен тур сейчас — администратор проведёт
+                    вас по залу при бронировании.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setOpen(false)}
+                    className="mt-2 border border-primary/40 px-8 py-3 font-label-caps text-label-caps uppercase tracking-widest text-primary transition hover:bg-primary/10"
+                  >
+                    Понятно
+                  </button>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
-      ) : null}
+            </motion.div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </>
   );
 }

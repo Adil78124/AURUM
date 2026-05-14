@@ -1,14 +1,17 @@
 "use client";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 import { useCallback, useEffect, useState } from "react";
 import type { Review } from "@/data/reviews";
 import { ReviewCard } from "@/components/reviews/ReviewCard";
+import { premiumEase } from "@/lib/animations";
 
 const VISIBLE = 3;
 
 export function ReviewsCarousel({ items }: { items: Review[] }) {
   const [start, setStart] = useState(0);
+  const reduced = useReducedMotion();
   const maxStart = Math.max(0, items.length - VISIBLE);
 
   useEffect(() => {
@@ -29,7 +32,13 @@ export function ReviewsCarousel({ items }: { items: Review[] }) {
 
   return (
     <div>
-      <div className="mb-10 grid grid-cols-1 gap-gutter md:grid-cols-3">
+      <motion.div
+        key={start}
+        className="mb-10 grid grid-cols-1 gap-gutter md:grid-cols-3"
+        initial={reduced ? false : { opacity: 0.65, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: reduced ? 0.2 : 0.5, ease: premiumEase }}
+      >
         {padded.map((r, i) =>
           r ? (
             <ReviewCard key={r.id} review={r} featured={i === 1} />
@@ -37,7 +46,7 @@ export function ReviewsCarousel({ items }: { items: Review[] }) {
             <div key={`empty-${i}`} className="hidden md:block" aria-hidden />
           ),
         )}
-      </div>
+      </motion.div>
       <div className="flex justify-center gap-4">
         <button
           type="button"

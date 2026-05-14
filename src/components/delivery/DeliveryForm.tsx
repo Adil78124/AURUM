@@ -5,6 +5,7 @@ import type { InputHTMLAttributes } from "react";
 import { useMemo, useState } from "react";
 import { useCart } from "@/context/CartContext";
 import { formatTenge } from "@/lib/formatTenge";
+import { MotionReveal } from "@/components/motion/MotionReveal";
 
 const STATIC_FALLBACK = [
   {
@@ -90,7 +91,7 @@ export function DeliveryForm() {
             className="grid grid-cols-1 gap-0 lg:grid-cols-2"
             onSubmit={(e) => e.preventDefault()}
           >
-            <div className="space-y-10 border-zinc-200 px-6 py-8 md:px-10 md:py-10 lg:border-r">
+            <MotionReveal variant="fadeUp" className="space-y-10 border-zinc-200 px-6 py-8 md:px-10 md:py-10 lg:border-r">
               <div>
                 <h3 className="mb-6 text-sm font-bold uppercase tracking-widest text-zinc-800">
                   Контактные данные
@@ -139,9 +140,9 @@ export function DeliveryForm() {
                   </div>
                 </div>
               </div>
-            </div>
+            </MotionReveal>
 
-            <div className="bg-[#eceae4] px-6 py-8 md:px-10 md:py-10">
+            <MotionReveal variant="slideRight" className="bg-[#eceae4] px-6 py-8 md:px-10 md:py-10">
               <h3 className="mb-6 text-lg font-bold text-zinc-900">Ваш заказ ({totalQty})</h3>
               <div className="space-y-5">
                 {displayLines.map((row) => (
@@ -222,7 +223,7 @@ export function DeliveryForm() {
                   Добавьте позиции в корзине на странице «Меню», чтобы заказ подставился автоматически.
                 </p>
               ) : null}
-            </div>
+            </MotionReveal>
           </form>
         </div>
       </div>

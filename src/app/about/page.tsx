@@ -1,15 +1,27 @@
+"use client";
+
 import Image from "next/image";
+import { motion, useReducedMotion } from "framer-motion";
 import { AboutChefSection } from "@/components/about/AboutChefSection";
 import { AboutQuoteSection } from "@/components/about/AboutQuoteSection";
 import { AboutCtaSection } from "@/components/about/AboutCtaSection";
+import { premiumEase, viewportOnce } from "@/lib/animations";
 
 const HERO_IMG = "/IMG_4924.PNG";
 
 export default function AboutPage() {
+  const reduced = useReducedMotion();
+
   return (
     <main className="pt-28 md:pt-32">
       <section className="mx-auto mb-section-gap grid min-h-[600px] max-w-container-max grid-cols-1 items-center gap-gutter px-margin-mobile md:min-h-[819px] md:grid-cols-12 md:px-margin-desktop">
-        <div className="space-y-8 md:col-span-5">
+        <motion.div
+          className="space-y-8 md:col-span-5"
+          initial={reduced ? { opacity: 1 } : { opacity: 0, x: -24 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={viewportOnce}
+          transition={{ duration: reduced ? 0.3 : 0.85, ease: premiumEase }}
+        >
           <div className="space-y-4">
             <span className="font-label-caps text-label-caps uppercase tracking-[0.3em] text-primary">
               Искусство гостеприимства
@@ -29,8 +41,14 @@ export default function AboutPage() {
               камерный ресторан с авторской кухней, винной картой и сервисом уровня fine dining.
             </p>
           </div>
-        </div>
-        <div className="relative md:col-span-7">
+        </motion.div>
+        <motion.div
+          className="relative md:col-span-7"
+          initial={reduced ? { opacity: 1 } : { opacity: 0, x: 28 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={viewportOnce}
+          transition={{ duration: reduced ? 0.3 : 0.88, ease: premiumEase, delay: reduced ? 0 : 0.1 }}
+        >
           <div className="gold-glow aspect-[4/5] overflow-hidden rounded-lg md:aspect-[16/10]">
             <Image
               src={HERO_IMG}
@@ -47,7 +65,7 @@ export default function AboutPage() {
               Десять лет совершенства
             </span>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       <section className="border-y border-primary/10 bg-surface-container-low py-section-gap px-margin-mobile md:px-margin-desktop">

@@ -1,11 +1,17 @@
+"use client";
+
 import { Camera, MessageCircle } from "lucide-react";
 import { contacts } from "@/data/contacts";
 import { ContactMapEmbed } from "@/components/maps/ContactMapEmbed";
+import { MotionReveal } from "@/components/motion/MotionReveal";
 
 export function ContactSection() {
   return (
     <section className="glass-card mb-section-gap flex flex-col overflow-hidden rounded-lg shadow-2xl lg:flex-row">
-      <div className="flex flex-col justify-center border-b border-primary/10 p-12 md:p-16 lg:w-1/2 lg:border-b-0 lg:border-r">
+      <MotionReveal
+        variant="slideLeft"
+        className="flex flex-col justify-center border-b border-primary/10 p-12 md:p-16 lg:w-1/2 lg:border-b-0 lg:border-r"
+      >
         <div className="space-y-12">
           <div>
             <p className="mb-4 font-label-caps text-label-caps uppercase tracking-widest text-primary/60">
@@ -75,13 +81,16 @@ export function ContactSection() {
             <p className="font-body-md text-on-surface-variant">{contacts.parking}</p>
           </div>
         </div>
-      </div>
-      <div className="relative w-full overflow-hidden border-t border-primary/10 p-6 lg:w-1/2 lg:border-l-0 lg:border-t-0 lg:p-8">
+      </MotionReveal>
+      <MotionReveal
+        variant="slideRight"
+        className="relative w-full overflow-hidden border-t border-primary/10 p-6 lg:w-1/2 lg:border-l-0 lg:border-t-0 lg:p-8"
+      >
         <p className="mb-4 font-label-caps text-label-caps uppercase tracking-widest text-primary/60 lg:hidden">
           Карта
         </p>
         <ContactMapEmbed title="Карта — ресторан AURUM, Алматы" />
-      </div>
+      </MotionReveal>
     </section>
   );
 }

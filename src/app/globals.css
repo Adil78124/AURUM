@@ -256,26 +256,6 @@ body {
   animation: interior-line-shimmer 5s ease-in-out infinite;
 }
 
-@keyframes interior-reveal-up {
-  from {
-    opacity: 0;
-    transform: translateY(28px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.interior-reveal {
-  opacity: 0;
-  transform: translateY(28px);
-}
-
-.interior-reveal.interior-reveal-visible {
-  animation: interior-reveal-up 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
 @keyframes interior-float {
   0%,
   100% {
@@ -304,4 +284,67 @@ body {
 
 .interior-ambient-orb {
   animation: interior-glow-orb 12s ease-in-out infinite;
+}
+
+/* —— Premium motion (CSS; Framer used for scroll reveals) —— */
+.hero-kenburns-inner {
+  transform: scale(1);
+  animation: hero-kenburns 32s ease-in-out infinite alternate;
+}
+
+@keyframes hero-kenburns {
+  to {
+    transform: scale(1.07);
+  }
+}
+
+.hero-gold-pulse {
+  animation: hero-gold-pulse 4.5s ease-in-out infinite;
+}
+
+@keyframes hero-gold-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(240, 197, 103, 0);
+  }
+  50% {
+    box-shadow: 0 0 28px 2px rgba(240, 197, 103, 0.18);
+  }
+}
+
+.virtual-tour-preview-zoom .vt-zoom-target {
+  transform: scale(1);
+  animation: vt-preview-zoom 22s ease-in-out infinite alternate;
+}
+
+@keyframes vt-preview-zoom {
+  to {
+    transform: scale(1.05);
+  }
+}
+
+.vt-play-pulse {
+  animation: vt-play-pulse 2.8s ease-in-out infinite;
+}
+
+@keyframes vt-play-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.95;
+  }
+  50% {
+    transform: scale(1.04);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-kenburns-inner,
+  .virtual-tour-preview-zoom .vt-zoom-target,
+  .vt-play-pulse,
+  .hero-gold-pulse {
+    animation: none !important;
+    transform: none !important;
+  }
 }
