@@ -3,6 +3,7 @@
 import Image from "next/image";
 import type { InputHTMLAttributes } from "react";
 import { useMemo, useState } from "react";
+import { useTranslations } from "next-intl";
 import { useCart } from "@/context/CartContext";
 import { formatTenge } from "@/lib/formatTenge";
 import { MotionReveal } from "@/components/motion/MotionReveal";
@@ -10,7 +11,6 @@ import { MotionReveal } from "@/components/motion/MotionReveal";
 const STATIC_FALLBACK = [
   {
     id: "f1",
-    name: "Ассорти из морепродуктов",
     price: 18500,
     qty: 1,
     image:
@@ -18,7 +18,6 @@ const STATIC_FALLBACK = [
   },
   {
     id: "f2",
-    name: "Стейк Рибай «Gold»",
     price: 24500,
     qty: 1,
     image:
@@ -48,12 +47,15 @@ function Field({
 export function DeliveryForm() {
   const { lines, totalTenge, setQuantity } = useCart();
   const [promo, setPromo] = useState("");
+  const t = useTranslations("DeliveryForm");
+  const tMenu = useTranslations("Menu");
+  const tCommon = useTranslations("Common");
 
   const displayLines = useMemo(() => {
     if (lines.length > 0) {
       return lines.map((l) => ({
         id: l.item.id,
-        name: l.item.name,
+        kind: "menu" as const,
         priceEach: l.item.priceTenge,
         qty: l.quantity,
         image: l.item.imageSrc,
@@ -61,7 +63,7 @@ export function DeliveryForm() {
     }
     return STATIC_FALLBACK.map((r) => ({
       id: r.id,
-      name: r.name,
+      kind: "static" as const,
       priceEach: r.price,
       qty: r.qty,
       image: r.image,
@@ -80,12 +82,9 @@ export function DeliveryForm() {
         <div className="overflow-hidden rounded-2xl bg-[#f7f6f3] shadow-2xl">
           <div className="border-b border-zinc-200 px-6 py-6 md:px-10 md:py-8">
             <h2 className="text-center text-2xl font-bold tracking-wide text-[#1d4ed8] md:text-3xl">
-              Оформление заказа
+              {t("title")}
             </h2>
-            <p className="mt-2 text-center text-sm text-zinc-600">
-              Заполните данные — менеджер подтвердит заказ. Оплата онлайн — через{" "}
-              <span className="font-semibold">Kaspi.kz</span>.
-            </p>
+            <p className="mt-2 text-center text-sm text-zinc-600">{t("intro")}</p>
           </div>
           <form
             className="grid grid-cols-1 gap-0 lg:grid-cols-2"
@@ -94,56 +93,55 @@ export function DeliveryForm() {
             <MotionReveal variant="fadeUp" className="space-y-10 border-zinc-200 px-6 py-8 md:px-10 md:py-10 lg:border-r">
               <div>
                 <h3 className="mb-6 text-sm font-bold uppercase tracking-widest text-zinc-800">
-                  Контактные данные
+                  {t("contactsHeading")}
                 </h3>
                 <div className="space-y-6">
-                  <Field label="Ваше ФИО" name="fio" required placeholder="Иванов Иван Иванович" />
-                  <Field label="Ваш телефон" name="phone" type="tel" placeholder="+7 (___) ___-__-__" />
-                  <Field label="Ваша почта" name="email" type="email" placeholder="name@mail.com" />
+                  <Field label={t("fio")} name="fio" required placeholder={t("fioPh")} />
+                  <Field label={t("phone")} name="phone" type="tel" placeholder={t("phonePh")} />
+                  <Field label={t("email")} name="email" type="email" placeholder={t("emailPh")} />
                 </div>
               </div>
               <div>
                 <h3 className="mb-6 text-sm font-bold uppercase tracking-widest text-zinc-800">
-                  Доставка
+                  {t("deliveryHeading")}
                 </h3>
                 <div className="space-y-6">
-                  <Field label="Город, адрес, дом" name="street" placeholder="г. Алматы, проспект…, дом …" />
+                  <Field label={t("street")} name="street" placeholder={t("streetPh")} />
                   <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-                    <Field label="Домофон" name="intercom" placeholder="0000" />
-                    <Field label="Квартира/офис" name="apt" placeholder="10" />
-                    <Field label="Этаж" name="floor" placeholder="5" />
+                    <Field label={t("intercom")} name="intercom" placeholder={t("intercomPh")} />
+                    <Field label={t("apt")} name="apt" placeholder={t("aptPh")} />
+                    <Field label={t("floor")} name="floor" placeholder={t("floorPh")} />
                   </div>
                   <label className="block">
                     <span className="text-xs font-semibold uppercase tracking-widest text-[#6b5a48]">
-                      Комментарий
+                      {t("comment")}
                     </span>
                     <textarea
                       name="comment"
                       rows={3}
                       className="mt-2 w-full resize-none border-0 border-b border-zinc-300 bg-transparent py-2 text-zinc-900 outline-none placeholder:text-zinc-400 focus:border-[#c08431]"
-                      placeholder="Подъезд, ориентиры, пожелания курьеру…"
+                      placeholder={t("commentPh")}
                     />
                   </label>
                 </div>
               </div>
               <div>
-                <h3 className="mb-4 text-sm font-bold uppercase tracking-widest text-zinc-800">Оплата</h3>
-                <p className="mb-4 text-sm text-zinc-600">
-                  Основной способ оплаты — <span className="font-semibold text-zinc-900">Kaspi.kz</span>{" "}
-                  (кнопка справа). Поля карты ниже — опционально, если понадобится альтернативный способ.
-                </p>
+                <h3 className="mb-4 text-sm font-bold uppercase tracking-widest text-zinc-800">
+                  {t("paymentHeading")}
+                </h3>
+                <p className="mb-4 text-sm text-zinc-600">{t("paymentNote")}</p>
                 <div className="space-y-4">
-                  <Field label="Номер карты" name="card" placeholder="0000 0000 0000 0000" autoComplete="off" />
+                  <Field label={t("card")} name="card" placeholder={t("cardPh")} autoComplete="off" />
                   <div className="grid grid-cols-2 gap-4">
-                    <Field label="Срок действия" name="exp" placeholder="MM/YY" />
-                    <Field label="Имя на карте (необязательно)" name="cardname" placeholder="IVAN IVANOV" />
+                    <Field label={t("exp")} name="exp" placeholder={t("expPh")} />
+                    <Field label={t("cardName")} name="cardname" placeholder={t("cardNamePh")} />
                   </div>
                 </div>
               </div>
             </MotionReveal>
 
             <MotionReveal variant="slideRight" className="bg-[#eceae4] px-6 py-8 md:px-10 md:py-10">
-              <h3 className="mb-6 text-lg font-bold text-zinc-900">Ваш заказ ({totalQty})</h3>
+              <h3 className="mb-6 text-lg font-bold text-zinc-900">{t("orderTitle", { count: totalQty })}</h3>
               <div className="space-y-5">
                 {displayLines.map((row) => (
                   <div key={row.id} className="flex gap-4 rounded-lg bg-white/80 p-3 shadow-sm">
@@ -151,7 +149,11 @@ export function DeliveryForm() {
                       <Image src={row.image} alt="" fill className="object-cover" sizes="80px" />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <p className="truncate font-semibold text-zinc-900">{row.name}</p>
+                      <p className="truncate font-semibold text-zinc-900">
+                        {row.kind === "static"
+                          ? t(`staticItems.${row.id}.name`)
+                          : tMenu(`items.${row.id}.name`)}
+                      </p>
                       <div className="mt-2 flex items-center gap-3">
                         <button
                           type="button"
@@ -160,7 +162,7 @@ export function DeliveryForm() {
                           onClick={() => {
                             if (lines.length > 0) setQuantity(row.id, row.qty - 1);
                           }}
-                          aria-label="Меньше"
+                          aria-label={tCommon("less")}
                         >
                           −
                         </button>
@@ -172,7 +174,7 @@ export function DeliveryForm() {
                           onClick={() => {
                             if (lines.length > 0) setQuantity(row.id, row.qty + 1);
                           }}
-                          aria-label="Больше"
+                          aria-label={tCommon("more")}
                         >
                           +
                         </button>
@@ -186,26 +188,26 @@ export function DeliveryForm() {
               </div>
               <div className="mt-6">
                 <label className="text-xs font-semibold uppercase tracking-widest text-[#6b5a48]">
-                  Промокод
+                  {t("promo")}
                 </label>
                 <input
                   value={promo}
                   onChange={(e) => setPromo(e.target.value)}
                   className="mt-2 w-full rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 outline-none focus:border-[#c08431]"
-                  placeholder="Введите промокод"
+                  placeholder={t("promoPh")}
                 />
               </div>
               <div className="mt-8 space-y-2 border-t border-zinc-300 pt-6 text-sm text-zinc-700">
                 <div className="flex justify-between">
-                  <span>Доставка</span>
-                  <span className="font-medium text-emerald-700">Бесплатно</span>
+                  <span>{t("deliveryRow")}</span>
+                  <span className="font-medium text-emerald-700">{tCommon("free")}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Ваш заказ</span>
+                  <span>{t("orderRow")}</span>
                   <span>{formatTenge(total)}</span>
                 </div>
                 <div className="flex justify-between text-base font-bold text-zinc-900">
-                  <span>Итого</span>
+                  <span>{t("totalRow")}</span>
                   <span>{formatTenge(total)}</span>
                 </div>
               </div>
@@ -213,15 +215,13 @@ export function DeliveryForm() {
                 type="button"
                 className="mt-8 flex w-full items-center justify-center gap-2 bg-[#00AEEF] py-4 text-sm font-bold uppercase tracking-widest text-white shadow-lg transition hover:bg-[#0095cc]"
               >
-                Оплатить Kaspi.kz
+                {t("payKaspi")}
               </button>
               <p className="mt-2 text-center text-[10px] uppercase tracking-widest text-zinc-500">
-                Безопасная оплата через Kaspi
+                {t("secureNote")}
               </p>
               {lines.length === 0 ? (
-                <p className="mt-4 text-center text-xs text-zinc-500">
-                  Добавьте позиции в корзине на странице «Меню», чтобы заказ подставился автоматически.
-                </p>
+                <p className="mt-4 text-center text-xs text-zinc-500">{t("emptyCartHint")}</p>
               ) : null}
             </MotionReveal>
           </form>

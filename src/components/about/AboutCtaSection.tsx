@@ -2,12 +2,14 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { Sparkles } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useUiModals } from "@/context/UiModalsContext";
 import { premiumEase, staggerItem, staggerParent, viewportOnce } from "@/lib/animations";
 
 export function AboutCtaSection() {
   const { openBooking } = useUiModals();
   const reduced = useReducedMotion();
+  const t = useTranslations("AboutCta");
 
   return (
     <section className="border-t border-primary/10 bg-surface-container-low py-section-gap text-center">
@@ -25,13 +27,13 @@ export function AboutCtaSection() {
           variants={staggerItem(Boolean(reduced))}
           className="font-display-lg text-headline-lg text-on-surface"
         >
-          Познакомьтесь с AURUM ближе
+          {t("title")}
         </motion.h2>
         <motion.p
           variants={staggerItem(Boolean(reduced))}
           className="font-body-lg italic text-on-surface-variant"
         >
-          Забронируйте столик и ощутите золотой стандарт гостеприимства на практике.
+          {t("subtitle")}
         </motion.p>
         <motion.div variants={staggerItem(Boolean(reduced))}>
           <button
@@ -39,7 +41,7 @@ export function AboutCtaSection() {
             onClick={openBooking}
             className="bg-primary-container px-12 py-5 font-label-caps text-label-caps uppercase tracking-widest text-on-primary transition-all gold-glow"
           >
-            Забронировать столик
+            {t("cta")}
           </button>
         </motion.div>
       </motion.div>

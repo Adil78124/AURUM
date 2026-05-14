@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { useMemo, useState } from "react";
+import { useTranslations } from "next-intl";
 import { menuItems, type MenuCategoryId } from "@/data/menu";
 import { MenuCategoryNav } from "@/components/menu/MenuCategoryNav";
 import { MenuCard } from "@/components/menu/MenuCard";
@@ -12,6 +13,7 @@ import { premiumEase, staggerItem, staggerParent, viewportOnce } from "@/lib/ani
 export function MenuPageView() {
   const [active, setActive] = useState<MenuCategoryId>("starters");
   const reduced = useReducedMotion();
+  const t = useTranslations("Menu");
 
   const filtered = useMemo(
     () => menuItems.filter((i) => i.category === active),
@@ -28,12 +30,12 @@ export function MenuPageView() {
           viewport={viewportOnce}
           transition={{ duration: reduced ? 0.32 : 0.85, ease: premiumEase }}
         >
-          МЕНЮ AURUM
+          {t("title")}
         </motion.h1>
         <MotionGoldLine className="gold-thread mb-8" origin="center" />
         <MotionReveal variant="fadeIn" delay={0.08}>
           <p className="mx-auto max-w-2xl font-title-italic italic text-on-surface-variant">
-            Искусство гастрономии в атмосфере абсолютной приватности и роскоши.
+            {t("subtitle")}
           </p>
         </MotionReveal>
       </div>

@@ -1,0 +1,257 @@
+{
+  "Meta": {
+    "title": "AURUM — restaurant",
+    "description": "AURUM: premium gastronomy, private VIP rooms, and refined hospitality.",
+    "siteName": "AURUM"
+  },
+  "Nav": {
+    "home": "Home",
+    "about": "About",
+    "menu": "Menu",
+    "interior": "Interior",
+    "delivery": "Delivery",
+    "reviews": "Reviews",
+    "contacts": "Contact"
+  },
+  "Header": {
+    "bookTable": "Reserve a table",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "language": "Interface language"
+  },
+  "Footer": {
+    "tagline": "A premium dining restaurant. Contact details are repeated below for your convenience.",
+    "phone": "Phone",
+    "email": "Email",
+    "address": "Address",
+    "hours": "Opening hours",
+    "parking": "Parking",
+    "map": "Map",
+    "copyright": "© {year} AURUM. All rights reserved.",
+    "privacy": "Privacy policy",
+    "instagramAria": "Instagram",
+    "whatsappAria": "WhatsApp",
+    "telegramAria": "Telegram"
+  },
+  "Common": {
+    "close": "Close",
+    "understood": "Got it",
+    "more": "More",
+    "less": "Less",
+    "delete": "Remove",
+    "total": "Total",
+    "free": "Complimentary"
+  },
+  "Home": {
+    "heroEyebrow": "Welcome to Our Restaurant",
+    "heroImageAlt": "AURUM restaurant interior",
+    "bookTable": "Reserve a table",
+    "vipCabins": "VIP rooms",
+    "whyEyebrow": "WHY CHOOSE US",
+    "whyTitle1": "Why",
+    "whyTitle2": "AURUM",
+    "whyTitle3": "?",
+    "whyCards": {
+      "tl": {
+        "title": "Exceptional ingredients",
+        "text": "Direct sourcing of delicacies and top-tier farm produce."
+      },
+      "tr": {
+        "title": "VIP service",
+        "text": "A personal approach to every guest and meticulous attention to detail."
+      },
+      "bl": {
+        "title": "Beloved menu",
+        "text": "A chef-led reinterpretation of world classics with a signature touch."
+      },
+      "br": {
+        "title": "Warm atmosphere",
+        "text": "An intimate setting with soft light and live music for your comfort."
+      }
+    },
+    "faqTitle": "Frequently asked questions"
+  },
+  "Faq": {
+    "items": {
+      "1": {
+        "question": "How often do themed evenings take place?",
+        "answer": "Themed evenings and gastronomic events follow a schedule—typically 2–4 times a month. We publish dates on social media and share them when you book."
+      },
+      "2": {
+        "question": "What is city delivery pricing, and do you deliver outside the city?",
+        "answer": "Delivery within Almaty starts from 1,000 ₸; above the threshold stated in the Delivery section, delivery may be complimentary. Out-of-town delivery is available by arrangement—please ask the host in advance."
+      },
+      "3": {
+        "question": "Is online consultation available?",
+        "answer": "Yes—message us on WhatsApp or Instagram. Our administrator will help with the menu, reservations, and events."
+      },
+      "4": {
+        "question": "How many guests fit at one table?",
+        "answer": "In the main dining room, two to eight guests per table is comfortable. For larger parties we can combine tables or suggest a VIP room."
+      },
+      "5": {
+        "question": "What is the buyout price for the main dining room?",
+        "answer": "Main room buyouts are quoted individually based on date, time, and menu. Call the manager—we will tailor an offer to your format."
+      },
+      "6": {
+        "question": "What is the buyout price for the karaoke room?",
+        "answer": "The karaoke room and private zones are booked as turnkey packages. We will quote after timing, guest count, and catering are confirmed."
+      },
+      "7": {
+        "question": "May we bring our own alcohol?",
+        "answer": "Our policy on outside alcohol is confirmed at booking. As a rule, AURUM offers a curated wine and bar list."
+      },
+      "8": {
+        "question": "Can we extend service after closing?",
+        "answer": "Extensions may be possible by prior agreement when no other bookings conflict. Please discuss details with the administrator in advance."
+      }
+    }
+  },
+  "About": {
+    "heroEyebrow": "The art of hospitality",
+    "heroTitle": "AURUM: the gold standard of taste",
+    "heroLead": "We created a space where gastronomy meets culture. At AURUM every dish is crafted from rare ingredients, and every guest is the centre of our world. Immerse yourself in refined calm and seamless service.",
+    "heroCard": "About the restaurant.",
+    "heroCardText": "AURUM is an intimate restaurant with a chef-driven menu, a wine programme, and fine-dining service.",
+    "heroImageAlt": "AURUM interior and table setting",
+    "estLabel": "Est. 2014",
+    "estSub": "A decade of excellence",
+    "sectionEyebrow": "About",
+    "sectionTitle": "A space for discerning palates",
+    "sectionLead": "Our kitchen is guided by seasonality, local farms, and world-class technique. We honour tradition and reinterpret classics—from starters to dessert.",
+    "p1": "Chefs, sommeliers, and floor managers work as one so every visit feels effortless and complete. We listen and adapt—to a business dinner, a family celebration, or an intimate evening for two.",
+    "p2": "The interior supports the mood: deep wood and brass, soft light, and private corners. This is not abstract hotel glamour—it is a real restaurant where plating temperature and the rhythm of the evening matter."
+  },
+  "Chef": {
+    "eyebrow": "Executive chef",
+    "title": "The AURUM kitchen",
+    "imageAlt": "AURUM executive chef at work",
+    "name": "Executive chef, AURUM",
+    "bio": "Over fifteen years in professional kitchens, leading premium dining teams in Almaty, with a constant focus on craft.",
+    "quote": "“We cook for the guest at the table—not for a feed. Honest flavour, precise plating, and respect for the product. Gold in our name speaks to the value of the moment, not excess shine.”",
+    "p1": "The AURUM kitchen philosophy is seasonality, trusted suppliers, and clear flavour stories without overload. The menu is composed so both festive dinners and business formats feel natural and calm.",
+    "p2": "Behind the scenes are disciplined processes—from receiving ingredients to final plating. We hold a high bar for consistency so every visit feels reliably warm and assured."
+  },
+  "AboutQuote": {
+    "text": "Gold is not only a gleam in the interior—it is the value of moments shared at our table."
+  },
+  "AboutCta": {
+    "title": "Discover AURUM",
+    "subtitle": "Reserve a table and experience our gold standard of hospitality.",
+    "cta": "Reserve a table"
+  },
+  "Menu": {
+    "title": "AURUM MENU",
+    "subtitle": "The art of gastronomy in an atmosphere of privacy and luxury.",
+    "addToCart": "Add to cart",
+    "categories": {
+      "starters": "Starters",
+      "mains": "Mains",
+      "salads": "Salads",
+      "steaks": "Steaks",
+      "bar": "Bar menu",
+      "cocktails": "Cocktails"
+    },
+    "items": {
+      "tartare": {
+        "name": "Beef tartare",
+        "description": "Marbled beef, truffle oil, capers and a crisp baguette with a touch of gold dust.",
+        "imageAlt": "Beef tartare"
+      },
+      "scallops": {
+        "name": "Saint-Jacques scallops",
+        "description": "Seared scallops with green pea purée and champagne sauce.",
+        "imageAlt": "Saint-Jacques scallops"
+      },
+      "caviar": {
+        "name": "Black caviar",
+        "description": "Premium sturgeon caviar served on ice with traditional garnishes.",
+        "imageAlt": "Black caviar"
+      },
+      "pasta-truffle": {
+        "name": "Truffle pasta",
+        "description": "House-made pasta, cream-based sauce and fresh black truffle.",
+        "imageAlt": "Truffle pasta"
+      },
+      "wagyu": {
+        "name": "Wagyu ribeye",
+        "description": "Steak from Japanese A5 wagyu beef.",
+        "imageAlt": "Wagyu ribeye"
+      },
+      "sphere": {
+        "name": "AURUM Sphere",
+        "description": "Chocolate sphere with forest berry mousse and gold caramel.",
+        "imageAlt": "AURUM Sphere dessert"
+      },
+      "caesar": {
+        "name": "Caesar salad with shrimp",
+        "description": "Romaine, parmesan, Caesar dressing, tiger prawns and brioche croutons.",
+        "imageAlt": "Caesar salad with shrimp"
+      },
+      "old-fashioned": {
+        "name": "AURUM Old Fashioned",
+        "description": "Bourbon, cane syrup, bitters and a hint of cedar smoke.",
+        "imageAlt": "Old Fashioned cocktail"
+      },
+      "wine-glass": {
+        "name": "Glass of wine “Chateau Aurum”",
+        "description": "Selected red wine aged in our own barrels.",
+        "imageAlt": "Glass of red wine"
+      }
+    }
+  },
+  "Cart": {
+    "ariaOpen": "Cart",
+    "title": "Cart",
+    "closeOverlay": "Close cart",
+    "empty": "Your cart is empty.",
+    "checkoutHint": "Checkout is available on the Delivery page."
+  },
+  "Booking": {
+    "heroAlt": "AURUM restaurant atmosphere",
+    "sideKicker": "AURUM Reservation",
+    "sideLine": "Luxury dining experience",
+    "title": "Table reservation",
+    "subtitle": "A deposit of {amount} applies. Submit the form—we will call to confirm.",
+    "name": "Full name",
+    "namePh": "As in your ID",
+    "phone": "Phone number",
+    "phonePh": "+7 (___) ___-__-__",
+    "date": "Date",
+    "time": "Time",
+    "guests": "Guests",
+    "guestsPh": "2",
+    "note": "Notes",
+    "notePh": "Table preferences, allergies…",
+    "preorder": "Preorder dishes",
+    "preorderPh": "Dishes and portions…",
+    "submit": "Reserve a table",
+    "consent": "By submitting, you agree to the processing of personal data under our privacy policy."
+  },
+  "Vip": {
+    "heroAlt": "AURUM VIP room",
+    "sideKicker": "AURUM VIP",
+    "sideLine": "A private dinner format",
+    "title": "VIP rooms",
+    "subtitle": "A deposit of {amount} applies. Share your details—we will call to confirm and preorder dishes.",
+    "name": "Name",
+    "namePh": "How should we address you",
+    "phone": "Phone number",
+    "phonePh": "+7 (___) ___-__-__",
+    "date": "Date",
+    "time": "Time",
+    "guests": "Guests",
+    "guestsPh": "4",
+    "cabin": "Choose a VIP room",
+    "note": "Notes",
+    "notePh": "Occasion, requests…",
+    "preorder": "Preorder dishes",
+    "preorderPh": "Dishes and quantities…",
+    "submit": "Send request"
+  },
+  "VipCabins": {
+    "aurum-i": "AURUM Room I",
+    "aurum-ii": "AURUM Room II",
+    "aurum-iii": "AURUM Room III (panoramic)"
+  }
+}

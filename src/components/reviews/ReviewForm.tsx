@@ -3,6 +3,7 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { MessageSquare, Star } from "lucide-react";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { cn } from "@/lib/cn";
 import type { Review } from "@/data/reviews";
@@ -19,6 +20,7 @@ export function ReviewForm({ onSubmitted }: Props) {
   const [text, setText] = useState("");
   const [success, setSuccess] = useState(false);
   const reduced = useReducedMotion();
+  const t = useTranslations("ReviewForm");
 
   return (
     <GlassCard className="relative mx-auto max-w-2xl overflow-hidden p-12">
@@ -32,7 +34,7 @@ export function ReviewForm({ onSubmitted }: Props) {
         viewport={viewportOnce}
         transition={{ duration: reduced ? 0.28 : 0.72, ease: premiumEase }}
       >
-        Оставить отзыв
+        {t("title")}
       </motion.h3>
       <motion.form
         className="space-y-8"
@@ -42,14 +44,14 @@ export function ReviewForm({ onSubmitted }: Props) {
         viewport={viewportOnce}
         onSubmit={(e) => {
           e.preventDefault();
-          const trimmedName = name.trim() || "Гость";
+          const trimmedName = name.trim() || t("guestDefault");
           const trimmedText = text.trim();
           if (!trimmedText || rating < 1) return;
 
           const entry: Review = {
             id: `local-${Date.now()}`,
             author: trimmedName,
-            date: "Только что",
+            date: t("justNow"),
             text: `«${trimmedText}»`,
             rating,
           };
@@ -69,11 +71,11 @@ export function ReviewForm({ onSubmitted }: Props) {
         >
           <div className="border-b border-primary/30 py-2 transition-colors focus-within:border-primary">
             <label className="mb-1 block font-title-italic text-sm italic text-on-surface-variant">
-              Имя
+              {t("name")}
             </label>
             <input
               className="w-full border-none bg-transparent p-0 text-on-surface outline-none ring-0 placeholder:text-on-surface-variant/50"
-              placeholder="Имя Фамилия"
+              placeholder={t("namePh")}
               name="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -81,11 +83,11 @@ export function ReviewForm({ onSubmitted }: Props) {
           </div>
           <div className="border-b border-primary/30 py-2 transition-colors focus-within:border-primary">
             <label className="mb-1 block font-title-italic text-sm italic text-on-surface-variant">
-              Телефон или email
+              {t("contact")}
             </label>
             <input
               className="w-full border-none bg-transparent p-0 text-on-surface outline-none ring-0 placeholder:text-on-surface-variant/50"
-              placeholder="+7 или email"
+              placeholder={t("contactPh")}
               name="contact"
               value={contact}
               onChange={(e) => setContact(e.target.value)}
@@ -97,11 +99,11 @@ export function ReviewForm({ onSubmitted }: Props) {
           variants={staggerItem(Boolean(reduced))}
         >
           <label className="mb-1 block font-title-italic text-sm italic text-on-surface-variant">
-            Ваш отзыв
+            {t("text")}
           </label>
           <textarea
             className="w-full resize-none border-none bg-transparent p-0 text-on-surface outline-none ring-0 placeholder:text-on-surface-variant/50"
-            placeholder="Расскажите о вашем визите..."
+            placeholder={t("textPh")}
             rows={3}
             name="text"
             value={text}
@@ -120,7 +122,7 @@ export function ReviewForm({ onSubmitted }: Props) {
                 type="button"
                 className="transition-colors hover:text-primary"
                 onClick={() => setRating(n)}
-                aria-label={`Оценка ${n}`}
+                aria-label={t("ratingAria", { n })}
               >
                 <Star
                   className={cn(
@@ -137,7 +139,7 @@ export function ReviewForm({ onSubmitted }: Props) {
             type="submit"
             className="bg-primary px-12 py-4 font-label-caps text-label-caps uppercase tracking-[0.2em] text-on-primary transition-all gold-glow"
           >
-            Отправить отзыв
+            {t("submit")}
           </button>
           <AnimatePresence>
             {success ? (
@@ -150,8 +152,7 @@ export function ReviewForm({ onSubmitted }: Props) {
                 exit={{ opacity: 0, y: -6 }}
                 transition={{ duration: reduced ? 0.22 : 0.45, ease: premiumEase }}
               >
-                Спасибо! Отзыв добавлен в ленту на этой странице. Пока без сервера — данные не
-                отправляются в CRM и хранятся только у вас в браузере до обновления страницы.
+                {t("success")}
               </motion.p>
             ) : null}
           </AnimatePresence>

@@ -1,19 +1,12 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/cn";
 import type { MenuCategoryId } from "@/data/menu";
-import { menuCategoryLabels } from "@/data/menu";
 import { staggerItem, staggerParent, viewportOnce } from "@/lib/animations";
 
-const ORDER: MenuCategoryId[] = [
-  "starters",
-  "mains",
-  "salads",
-  "steaks",
-  "bar",
-  "cocktails",
-];
+const ORDER: MenuCategoryId[] = ["starters", "mains", "salads", "steaks", "bar", "cocktails"];
 
 export function MenuCategoryNav({
   active,
@@ -23,6 +16,7 @@ export function MenuCategoryNav({
   onChange: (id: MenuCategoryId) => void;
 }) {
   const reduced = useReducedMotion();
+  const t = useTranslations("Menu.categories");
 
   return (
     <motion.div
@@ -46,7 +40,7 @@ export function MenuCategoryNav({
                   : "border-transparent text-on-surface-variant hover:text-primary",
               )}
             >
-              {menuCategoryLabels[id]}
+              {t(id)}
             </button>
           </motion.div>
         );

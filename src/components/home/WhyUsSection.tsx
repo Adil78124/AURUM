@@ -2,47 +2,40 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { Utensils, Star, BookOpen, Armchair } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { premiumEase, staggerItem, staggerParent, viewportOnce } from "@/lib/animations";
 
 const NOISE_SVG =
   "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E\")";
 
-const CARDS = [
+const CARD_LAYOUT = [
   {
-    key: "tl",
-    title: "Качественные продукты",
-    text: "Прямые поставки деликатесов и фермерских продуктов высшей категории.",
+    key: "tl" as const,
     Icon: Utensils,
     desktop:
       "left-[1%] top-[5%] max-w-[min(280px,26vw)] text-left xl:left-[3%] xl:top-[7%] xl:max-w-[300px]",
   },
   {
-    key: "tr",
-    title: "VIP обслуживание",
-    text: "Персональный подход к каждому гостю и внимание к мельчайшим деталям.",
+    key: "tr" as const,
     Icon: Star,
     desktop:
       "right-[1%] top-[3%] max-w-[min(280px,26vw)] text-right xl:right-[4%] xl:top-[5%] xl:max-w-[300px]",
   },
   {
-    key: "bl",
-    title: "Популярное меню",
-    text: "Авторская интерпретация классических блюд мировой кухни от шеф-повара.",
+    key: "bl" as const,
     Icon: BookOpen,
     desktop:
       "bottom-[10%] left-[2%] max-w-[min(280px,26vw)] text-left xl:bottom-[12%] xl:left-[5%] xl:max-w-[300px]",
   },
   {
-    key: "br",
-    title: "Уютная атмосфера",
-    text: "Камерная обстановка с мягким светом и живой музыкой для вашего комфорта.",
+    key: "br" as const,
     Icon: Armchair,
     desktop:
       "bottom-[8%] right-[2%] max-w-[min(280px,26vw)] text-right xl:bottom-[11%] xl:right-[5%] xl:max-w-[300px]",
   },
 ] as const;
 
-function deskCardMotion(key: (typeof CARDS)[number]["key"], reduced: boolean) {
+function deskCardMotion(key: (typeof CARD_LAYOUT)[number]["key"], reduced: boolean) {
   const d = reduced ? 0 : 22;
   if (key === "tl" || key === "bl") {
     return {
@@ -179,6 +172,7 @@ function MobileArrowDivider({ flip }: { flip?: boolean }) {
 
 function CenterTitle({ className = "" }: { className?: string }) {
   const reduced = useReducedMotion();
+  const t = useTranslations("Home");
   return (
     <motion.div
       className={`relative mx-auto w-max ${className}`}
@@ -198,7 +192,7 @@ function CenterTitle({ className = "" }: { className?: string }) {
         />
         <div className="px-1 text-center sm:px-2">
           <span className="mb-2 block font-label-caps text-[10px] tracking-[0.32em] text-primary/75 sm:text-[11px]">
-            НАШИ ПРЕИМУЩЕСТВА
+            {t("whyEyebrow")}
           </span>
           <h2
             className="font-[family-name:var(--font-manrope)] text-[clamp(1.85rem,6.5vw,4.35rem)] font-bold uppercase leading-[0.88] tracking-[-0.02em] text-white"
@@ -207,11 +201,11 @@ function CenterTitle({ className = "" }: { className?: string }) {
                 "0 2px 0 rgba(0,0,0,0.55), 0 0 40px rgba(255,228,175,0.12), 0 0 1px rgba(255,255,255,0.35)",
             }}
           >
-            Почему
+            {t("whyTitle1")}
             <br />
-            именно
+            {t("whyTitle2")}
             <br />
-            мы?
+            {t("whyTitle3")}
           </h2>
         </div>
         <span
@@ -225,6 +219,7 @@ function CenterTitle({ className = "" }: { className?: string }) {
 
 export function WhyUsSection() {
   const reduced = useReducedMotion();
+  const t = useTranslations("Home");
 
   return (
     <section className="relative overflow-hidden bg-[#060606] py-section-gap">
@@ -255,7 +250,7 @@ export function WhyUsSection() {
             whileInView="visible"
             viewport={viewportOnce}
           >
-            {CARDS.map(({ title, text, Icon, key }, i) => (
+            {CARD_LAYOUT.map(({ key, Icon }, i) => (
               <motion.div key={key} variants={staggerItem(Boolean(reduced))}>
                 <div>
                   <div className="group border-l-2 border-[#ea580c]/70 pl-4 transition-all duration-500 ease-out hover:border-primary hover:pl-5 hover:shadow-[0_0_22px_rgba(240,197,103,0.1)] sm:pl-5">
@@ -267,15 +262,15 @@ export function WhyUsSection() {
                       />
                       <div>
                         <h3 className="font-[family-name:var(--font-manrope)] text-sm font-bold uppercase tracking-[0.14em] text-white transition-colors group-hover:text-primary">
-                          {title}
+                          {t(`whyCards.${key}.title`)}
                         </h3>
                         <p className="mt-2 font-body-md text-sm leading-relaxed text-zinc-400 transition-colors group-hover:text-zinc-300">
-                          {text}
+                          {t(`whyCards.${key}.text`)}
                         </p>
                       </div>
                     </div>
                   </div>
-                  {i < CARDS.length - 1 ? <MobileArrowDivider flip={i % 2 === 1} /> : null}
+                  {i < CARD_LAYOUT.length - 1 ? <MobileArrowDivider flip={i % 2 === 1} /> : null}
                 </div>
               </motion.div>
             ))}
@@ -289,7 +284,7 @@ export function WhyUsSection() {
             <div className="h-48 w-48 rounded-full bg-primary/5 blur-3xl xl:h-56 xl:w-56" aria-hidden />
           </div>
 
-          {CARDS.map(({ title, text, Icon, desktop, key }) => (
+          {CARD_LAYOUT.map(({ Icon, desktop, key }) => (
             <motion.article
               key={key}
               className={`group absolute z-[5] ${desktop}`}
@@ -309,10 +304,10 @@ export function WhyUsSection() {
                   />
                 </div>
                 <h3 className="font-[family-name:var(--font-manrope)] text-[13px] font-bold uppercase leading-snug tracking-[0.16em] text-white transition-[color,text-shadow] duration-300 group-hover:text-primary xl:text-sm">
-                  {title}
+                  {t(`whyCards.${key}.title`)}
                 </h3>
                 <p className="mt-2.5 font-body-md text-[13px] leading-relaxed text-zinc-400 transition-colors group-hover:text-zinc-300 xl:text-sm">
-                  {text}
+                  {t(`whyCards.${key}.text`)}
                 </p>
               </div>
             </motion.article>

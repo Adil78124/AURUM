@@ -3,12 +3,14 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { ShoppingBag } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import { useCart } from "@/context/CartContext";
 import { premiumEase } from "@/lib/animations";
 
 export function FloatingCart() {
   const { totalQty, toggleDrawer } = useCart();
   const reduced = useReducedMotion();
+  const tCart = useTranslations("Cart");
   const prevQty = useRef(0);
   const [pulse, setPulse] = useState(false);
 
@@ -30,7 +32,7 @@ export function FloatingCart() {
         type="button"
         onClick={toggleDrawer}
         className="relative flex h-16 w-16 items-center justify-center rounded-full bg-primary text-on-primary shadow-2xl amber-glow"
-        aria-label="Корзина"
+        aria-label={tCart("ariaOpen")}
         initial={{ opacity: 0, scale: 0.88 }}
         animate={{
           opacity: 1,

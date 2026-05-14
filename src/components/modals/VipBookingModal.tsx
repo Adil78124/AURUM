@@ -2,12 +2,14 @@
 
 import type { InputHTMLAttributes, ReactNode, TextareaHTMLAttributes } from "react";
 import { Calendar, Clock, Users } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useUiModals } from "@/context/UiModalsContext";
-import { vipCabins } from "@/data/vipCabins";
+import { interiorPhotoPaths } from "@/data/interior";
+import { vipCabinIds } from "@/data/vipCabins";
 import { LuxuryReservationModal } from "@/components/modals/LuxuryReservationModal";
 
-const VIP_HERO =
-  "https://lh3.googleusercontent.com/aida-public/AB6AXuBVUOUTxzKxigTNCdv1PSUHDR9RCh0EbUeAMeNbpY6gbLbjLc_v-4-OQ5KazvL1leDKaUtOeowJPC_w8-02HgLILoQwC8_4jdX0QgNZDCHqj1tUH8XizLHbs66WBEWnWLxH-FqwFzXQrGso50_ZiGUA9d67N8j5RYEWBsAfLdWorgCjagUwBE5Iu3dPZq5LilMOyhpVqSNBA6Jk-N7a0WI_T-CgxeqohJdbkrsxDpeSSyb8eKxCfe6ll_Ad3LG-pKX8BPS_UxrHMR8";
+const VIP_HERO = interiorPhotoPaths[4828];
+const DEPOSIT = "2000 ₸";
 
 const lbl = "mb-1 block text-[10px] font-medium uppercase tracking-[0.14em] text-zinc-500";
 
@@ -76,6 +78,8 @@ function PreorderField({
 
 export function VipBookingModal() {
   const { vipOpen, closeVip } = useUiModals();
+  const t = useTranslations("Vip");
+  const tCabins = useTranslations("VipCabins");
 
   return (
     <LuxuryReservationModal
@@ -83,17 +87,11 @@ export function VipBookingModal() {
       onClose={closeVip}
       titleId="vip-title"
       heroSrc={VIP_HERO}
-      heroAlt="VIP кабинка AURUM"
-      sideKicker="AURUM VIP"
-      sideLine="Приватный формат ужина"
-      title="VIP кабинки"
-      subtitle={
-        <>
-          Предоплата{" "}
-          <span className="font-semibold text-primary">2000 ₸</span>. Заполните данные — мы
-          перезвоним для подтверждения и предзаказа блюд.
-        </>
-      }
+      heroAlt={t("heroAlt")}
+      sideKicker={t("sideKicker")}
+      sideLine={t("sideLine")}
+      title={t("title")}
+      subtitle={t("subtitle", { amount: DEPOSIT })}
     >
       <form
         className="flex flex-col gap-3 md:min-h-0 md:flex-1 md:justify-between md:gap-2.5 lg:gap-3"
@@ -103,46 +101,46 @@ export function VipBookingModal() {
         }}
       >
         <div className="flex flex-col gap-3 md:gap-2.5 lg:gap-3">
-          <PillFull label="Имя" name="name" placeholder="Как к вам обращаться" />
-          <PillFull label="Номер телефона" name="phone" type="tel" placeholder="+7 (___) ___-__-__" />
+          <PillFull label={t("name")} name="name" placeholder={t("namePh")} />
+          <PillFull label={t("phone")} name="phone" type="tel" placeholder={t("phonePh")} />
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 md:gap-2.5 lg:gap-3">
             <PillField
-              label="Дата"
+              label={t("date")}
               name="date"
               type="date"
               icon={<Calendar className="h-4 w-4 shrink-0" strokeWidth={1.5} />}
             />
             <PillField
-              label="Время"
+              label={t("time")}
               name="time"
               type="time"
               icon={<Clock className="h-4 w-4 shrink-0" strokeWidth={1.5} />}
             />
             <PillField
-              label="Гости"
+              label={t("guests")}
               name="guests"
               type="number"
               min={1}
-              placeholder="4"
+              placeholder={t("guestsPh")}
               icon={<Users className="h-4 w-4 shrink-0" strokeWidth={1.5} />}
             />
           </div>
           <label className="block w-full min-w-0">
-            <span className={lbl}>Выбор VIP кабинки</span>
+            <span className={lbl}>{t("cabin")}</span>
             <select
               name="cabin"
-              defaultValue={vipCabins[0]?.id}
+              defaultValue={vipCabinIds[0]}
               className="w-full rounded-full border border-white/15 bg-black/35 px-4 py-2.5 text-sm text-white outline-none ring-1 ring-white/5 focus:ring-primary/40"
             >
-              {vipCabins.map((c) => (
-                <option key={c.id} value={c.id} className="bg-zinc-900 text-white">
-                  {c.label}
+              {vipCabinIds.map((id) => (
+                <option key={id} value={id} className="bg-zinc-900 text-white">
+                  {tCabins(id)}
                 </option>
               ))}
             </select>
           </label>
-          <PillComment label="Комментарий" name="note" placeholder="Формат встречи, пожелания…" />
-          <PreorderField label="Предзаказ блюд" name="preorder" placeholder="Блюда и количество…" />
+          <PillComment label={t("note")} name="note" placeholder={t("notePh")} />
+          <PreorderField label={t("preorder")} name="preorder" placeholder={t("preorderPh")} />
         </div>
 
         <div className="mt-1 flex flex-col gap-2.5 border-t border-white/5 pt-3 md:mt-0 md:shrink-0 md:pt-3">
@@ -150,7 +148,7 @@ export function VipBookingModal() {
             type="submit"
             className="w-full rounded-full border border-primary/35 bg-white/10 px-8 py-3 text-center text-xs font-bold uppercase tracking-[0.2em] text-white transition hover:bg-white/20 sm:w-auto sm:self-start sm:px-10"
           >
-            Отправить заявку
+            {t("submit")}
           </button>
         </div>
       </form>

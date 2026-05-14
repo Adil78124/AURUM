@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import type { MenuItem } from "@/data/menu";
 import { formatTenge } from "@/lib/formatTenge";
 import { useCart } from "@/context/CartContext";
@@ -9,6 +10,7 @@ import { premiumEase } from "@/lib/animations";
 
 export function MenuCard({ item }: { item: MenuItem }) {
   const { addItem } = useCart();
+  const t = useTranslations("Menu");
 
   return (
     <motion.div
@@ -23,7 +25,7 @@ export function MenuCard({ item }: { item: MenuItem }) {
         <motion.div className="relative h-full w-full" whileHover={{ scale: 1.04 }} transition={{ duration: 0.7, ease: premiumEase }}>
           <Image
             src={item.imageSrc}
-            alt={item.imageAlt}
+            alt={t(`items.${item.id}.imageAlt`)}
             fill
             className="object-cover grayscale-[30%] transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0"
             sizes="(max-width:768px) 100vw, 33vw"
@@ -31,10 +33,10 @@ export function MenuCard({ item }: { item: MenuItem }) {
         </motion.div>
       </div>
       <div className="mb-2 flex items-start justify-between gap-4">
-        <h3 className="font-headline-lg text-title-italic text-primary">{item.name}</h3>
+        <h3 className="font-headline-lg text-title-italic text-primary">{t(`items.${item.id}.name`)}</h3>
         <span className="shrink-0 font-body-lg text-primary">{formatTenge(item.priceTenge)}</span>
       </div>
-      <p className="mb-8 flex-grow font-body-md text-on-surface-variant">{item.description}</p>
+      <p className="mb-8 flex-grow font-body-md text-on-surface-variant">{t(`items.${item.id}.description`)}</p>
       <motion.button
         type="button"
         onClick={() => addItem(item, 1)}
@@ -43,7 +45,7 @@ export function MenuCard({ item }: { item: MenuItem }) {
         whileTap={{ scale: 0.98 }}
         transition={{ duration: 0.35, ease: premiumEase }}
       >
-        В корзину
+        {t("addToCart")}
       </motion.button>
     </motion.div>
   );

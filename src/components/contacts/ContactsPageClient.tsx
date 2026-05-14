@@ -1,11 +1,13 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { ContactSection } from "@/components/contacts/ContactSection";
 import { premiumEase, viewportOnce } from "@/lib/animations";
 
-export default function ContactsPage() {
+export function ContactsPageClient() {
   const reduced = useReducedMotion();
+  const t = useTranslations("Contacts");
 
   return (
     <main className="contacts-page-bg pb-section-gap pt-[140px] font-body-md text-on-surface">
@@ -17,7 +19,7 @@ export default function ContactsPage() {
           viewport={viewportOnce}
           transition={{ duration: reduced ? 0.28 : 0.78, ease: premiumEase }}
         >
-          <h1 className="mb-4 font-display-lg text-display-lg text-on-surface">Контакты</h1>
+          <h1 className="mb-4 font-display-lg text-display-lg text-on-surface">{t("title")}</h1>
           <div className="mx-auto h-px w-24 bg-primary/30" />
         </motion.div>
         <ContactSection />

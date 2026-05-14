@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { CookingPot, Laptop, PartyPopper, Soup } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { DeliveryForm } from "@/components/delivery/DeliveryForm";
 import { HERO_BACKGROUND_IMAGE } from "@/data/heroBackground";
 import { premiumEase, staggerItem, staggerParent, viewportOnce } from "@/lib/animations";
@@ -11,8 +12,9 @@ import { premiumEase, staggerItem, staggerParent, viewportOnce } from "@/lib/ani
 const ghostBtn =
   "inline-flex min-w-[220px] items-center justify-center border border-primary px-10 py-4 font-label-caps text-label-caps uppercase tracking-[0.18em] text-primary transition-all hover:bg-primary/10";
 
-export default function DeliveryPage() {
+export function DeliveryPageView() {
   const reduced = useReducedMotion();
+  const t = useTranslations("Delivery");
 
   return (
     <main className="overflow-x-hidden bg-[#0c0805] font-body-md text-on-surface">
@@ -25,7 +27,7 @@ export default function DeliveryPage() {
         >
           <Image
             src={HERO_BACKGROUND_IMAGE}
-            alt="Доставка AURUM"
+            alt={t("heroAlt")}
             fill
             priority
             className="object-cover object-center grayscale-[15%]"
@@ -42,12 +44,9 @@ export default function DeliveryPage() {
             transition={{ duration: reduced ? 0.25 : 0.9, ease: premiumEase, delay: reduced ? 0 : 0.12 }}
           >
             <h1 className="mb-5 font-display-lg text-headline-lg-mobile text-on-surface md:text-display-lg">
-              Доставка <span className="text-primary">AURUM</span>
+              {t("titleBefore")} <span className="text-primary">AURUM</span>
             </h1>
-            <p className="mb-10 max-w-xl font-body-lg text-body-lg text-on-surface-variant">
-              Хотите насладиться блюдами и напитками, не выходя из дома? Мы приготовим ваш заказ и
-              доставим по Алматы в удобное время — с премиальной упаковкой и контролем температуры.
-            </p>
+            <p className="mb-10 max-w-xl font-body-lg text-body-lg text-on-surface-variant">{t("lead")}</p>
             <motion.div
               className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center"
               initial="hidden"
@@ -66,7 +65,7 @@ export default function DeliveryPage() {
                 }}
               >
                 <Link href="/menu" className={ghostBtn}>
-                  Посмотреть меню
+                  {t("viewMenu")}
                 </Link>
               </motion.span>
               <motion.span
@@ -76,7 +75,7 @@ export default function DeliveryPage() {
                 }}
               >
                 <a href="#oformlenie-zakaza" className={ghostBtn}>
-                  Оформление заказа
+                  {t("orderCta")}
                 </a>
               </motion.span>
             </motion.div>
@@ -95,7 +94,7 @@ export default function DeliveryPage() {
           <div className="mb-14 flex items-center justify-center gap-6">
             <div className="hidden h-px flex-1 bg-gradient-to-r from-transparent via-[#c08431]/60 to-transparent md:block" />
             <h2 className="text-center font-headline-lg text-headline-lg-mobile italic text-[#3a2a1a] md:text-headline-lg">
-              Доставка AURUM — идеальный вариант, если:
+              {t("whyTitle")}
             </h2>
             <div className="hidden h-px flex-1 bg-gradient-to-r from-transparent via-[#c08431]/60 to-transparent md:block" />
           </div>
@@ -111,13 +110,8 @@ export default function DeliveryPage() {
                 <Soup className="h-7 w-7 text-[#3a2a1a]" strokeWidth={1.5} aria-hidden />
               </div>
               <div>
-                <p className="font-body-lg font-semibold text-[#2b2118]">
-                  Вы хотите получить заказ быстро и в горячем виде
-                </p>
-                <p className="mt-2 text-sm leading-relaxed text-zinc-600">
-                  Термоупаковка и логистика курьерской службы сохраняют подачу блюд максимально близкой
-                  к ресторанной.
-                </p>
+                <p className="font-body-lg font-semibold text-[#2b2118]">{t("why1Title")}</p>
+                <p className="mt-2 text-sm leading-relaxed text-zinc-600">{t("why1Text")}</p>
               </div>
             </motion.div>
             <motion.div className="flex gap-5" variants={staggerItem(Boolean(reduced))}>
@@ -125,10 +119,8 @@ export default function DeliveryPage() {
                 <CookingPot className="h-7 w-7 text-[#3a2a1a]" strokeWidth={1.5} aria-hidden />
               </div>
               <div>
-                <p className="font-body-lg font-semibold text-[#2b2118]">Нет возможности готовить самим</p>
-                <p className="mt-2 text-sm leading-relaxed text-zinc-600">
-                  Передайте вечер на кухню шефам AURUM — от закусок до авторских основных блюд.
-                </p>
+                <p className="font-body-lg font-semibold text-[#2b2118]">{t("why2Title")}</p>
+                <p className="mt-2 text-sm leading-relaxed text-zinc-600">{t("why2Text")}</p>
               </div>
             </motion.div>
             <motion.div className="flex gap-5" variants={staggerItem(Boolean(reduced))}>
@@ -136,12 +128,8 @@ export default function DeliveryPage() {
                 <Laptop className="h-7 w-7 text-[#3a2a1a]" strokeWidth={1.5} aria-hidden />
               </div>
               <div>
-                <p className="font-body-lg font-semibold text-[#2b2118]">
-                  Хочется отдохнуть дома, в любимой обстановке, со вкусными блюдами
-                </p>
-                <p className="mt-2 text-sm leading-relaxed text-zinc-600">
-                  Сервис премиального уровня без поездки в ресторан — для домашнего отдыха и встреч.
-                </p>
+                <p className="font-body-lg font-semibold text-[#2b2118]">{t("why3Title")}</p>
+                <p className="mt-2 text-sm leading-relaxed text-zinc-600">{t("why3Text")}</p>
               </div>
             </motion.div>
             <motion.div className="flex gap-5" variants={staggerItem(Boolean(reduced))}>
@@ -149,13 +137,8 @@ export default function DeliveryPage() {
                 <PartyPopper className="h-7 w-7 text-[#3a2a1a]" strokeWidth={1.5} aria-hidden />
               </div>
               <div>
-                <p className="font-body-lg font-semibold text-[#2b2118]">
-                  У вас дома торжество или просто приятный вечер
-                </p>
-                <p className="mt-2 text-sm leading-relaxed text-zinc-600">
-                  Соберём сет меню и подачу под формат праздника — от камерного ужина до семейного
-                  застолья.
-                </p>
+                <p className="font-body-lg font-semibold text-[#2b2118]">{t("why4Title")}</p>
+                <p className="mt-2 text-sm leading-relaxed text-zinc-600">{t("why4Text")}</p>
               </div>
             </motion.div>
           </motion.div>

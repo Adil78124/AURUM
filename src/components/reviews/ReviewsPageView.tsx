@@ -1,11 +1,13 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { ReviewsPageContent } from "@/components/reviews/ReviewsPageContent";
 import { premiumEase, viewportOnce } from "@/lib/animations";
 
-export default function ReviewsPage() {
+export function ReviewsPageView() {
   const reduced = useReducedMotion();
+  const t = useTranslations("Reviews");
 
   return (
     <main className="mx-auto max-w-container-max px-margin-mobile pb-section-gap pt-32 md:px-margin-desktop">
@@ -16,10 +18,8 @@ export default function ReviewsPage() {
         viewport={viewportOnce}
         transition={{ duration: reduced ? 0.3 : 0.8, ease: premiumEase }}
       >
-        <p className="mb-2 font-label-caps text-label-caps uppercase text-primary">
-          Голоса наших гостей
-        </p>
-        <h1 className="font-display-lg text-display-lg text-on-surface">Отзывы посетителей</h1>
+        <p className="mb-2 font-label-caps text-label-caps uppercase text-primary">{t("eyebrow")}</p>
+        <h1 className="font-display-lg text-display-lg text-on-surface">{t("title")}</h1>
         <div className="mx-auto mt-6 h-px w-24 bg-primary/40" />
       </motion.div>
 
@@ -30,8 +30,7 @@ export default function ReviewsPage() {
         viewport={viewportOnce}
         transition={{ duration: reduced ? 0.3 : 0.75, ease: premiumEase, delay: reduced ? 0 : 0.1 }}
       >
-        Отзывы с акцентом на атмосферу и качество — чтобы снять страх неизвестного и помочь выбрать
-        формат визита.
+        {t("intro")}
       </motion.p>
 
       <ReviewsPageContent />

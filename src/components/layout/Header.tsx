@@ -1,21 +1,21 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { Link, usePathname } from "@/i18n/navigation";
 import { cn } from "@/lib/cn";
 import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
 import { useUiModals } from "@/context/UiModalsContext";
 import { contacts } from "@/data/contacts";
 
-const NAV = [
-  { href: "/", label: "Главная" },
-  { href: "/about", label: "О нас" },
-  { href: "/menu", label: "Меню" },
-  { href: "/interior", label: "Интерьер" },
-  { href: "/delivery", label: "Доставка" },
-  { href: "/reviews", label: "Отзывы" },
+const NAV_PATHS = [
+  { href: "/", key: "home" as const },
+  { href: "/about", key: "about" as const },
+  { href: "/menu", key: "menu" as const },
+  { href: "/interior", key: "interior" as const },
+  { href: "/delivery", key: "delivery" as const },
+  { href: "/reviews", key: "reviews" as const },
 ] as const;
 
 function navActive(pathname: string, href: string) {
@@ -27,6 +27,8 @@ export function Header() {
   const pathname = usePathname();
   const { openBooking } = useUiModals();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const tNav = useTranslations("Nav");
+  const tHeader = useTranslations("Header");
 
   return (
     <header className="fixed top-0 z-50 w-full border-b border-white/[0.06] bg-[#0c0805]/55 backdrop-blur-xl">
@@ -40,7 +42,7 @@ export function Header() {
 
         <nav className="hidden min-w-0 flex-1 justify-center px-1 lg:flex">
           <ul className="flex flex-nowrap items-center justify-center gap-1 xl:gap-2">
-            {NAV.map((item) => (
+            {NAV_PATHS.map((item) => (
               <li key={item.href} className="shrink-0">
                 <Link
                   href={item.href}
@@ -51,7 +53,7 @@ export function Header() {
                       : "text-on-surface/90 hover:text-primary",
                   )}
                 >
-                  {item.label}
+                  {tNav(item.key)}
                 </Link>
               </li>
             ))}
@@ -71,13 +73,13 @@ export function Header() {
             onClick={openBooking}
             className="hidden whitespace-nowrap rounded-sm bg-primary-container px-3 py-2 font-label-caps text-[9px] font-semibold uppercase tracking-[0.12em] text-on-primary transition-all hover:brightness-110 active:scale-[0.98] lg:inline xl:px-4 xl:text-[10px] xl:tracking-[0.14em]"
           >
-            Забронировать столик
+            {tHeader("bookTable")}
           </button>
 
           <button
             type="button"
             className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-primary/30 text-primary lg:hidden"
-            aria-label={mobileOpen ? "Закрыть меню" : "Открыть меню"}
+            aria-label={mobileOpen ? tHeader("closeMenu") : tHeader("openMenu")}
             onClick={() => setMobileOpen((o) => !o)}
           >
             {mobileOpen ? <X className="h-5 w-5" strokeWidth={1.5} /> : <Menu className="h-5 w-5" strokeWidth={1.5} />}
@@ -88,7 +90,7 @@ export function Header() {
       {mobileOpen ? (
         <div className="border-t border-primary/10 bg-surface-container-lowest/98 px-4 py-5 backdrop-blur-xl lg:hidden">
           <nav className="flex flex-col gap-3">
-            {NAV.map((item) => (
+            {NAV_PATHS.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
@@ -98,7 +100,7 @@ export function Header() {
                   navActive(pathname, item.href) ? "text-primary" : "text-on-surface/85 hover:text-primary",
                 )}
               >
-                {item.label}
+                {tNav(item.key)}
               </Link>
             ))}
             <a href={contacts.phoneHref} className="whitespace-nowrap font-label-caps text-primary">
@@ -112,7 +114,7 @@ export function Header() {
               }}
               className="mt-1 w-full whitespace-nowrap bg-primary-container py-3 font-label-caps text-label-caps uppercase tracking-widest text-on-primary"
             >
-              Забронировать столик
+              {tHeader("bookTable")}
             </button>
           </nav>
         </div>

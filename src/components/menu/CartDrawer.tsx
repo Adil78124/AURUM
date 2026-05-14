@@ -4,6 +4,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { X } from "lucide-react";
 import { useEffect } from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { useCart } from "@/context/CartContext";
 import { formatTenge } from "@/lib/formatTenge";
 import { premiumEase } from "@/lib/animations";
@@ -11,6 +12,9 @@ import { premiumEase } from "@/lib/animations";
 export function CartDrawer() {
   const { drawerOpen, setDrawerOpen, lines, setQuantity, removeLine, totalTenge } = useCart();
   const reduced = useReducedMotion();
+  const tCart = useTranslations("Cart");
+  const tMenu = useTranslations("Menu");
+  const tCommon = useTranslations("Common");
 
   useEffect(() => {
     if (!drawerOpen) return;
@@ -30,7 +34,7 @@ export function CartDrawer() {
           <motion.button
             type="button"
             className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-            aria-label="Закрыть корзину"
+            aria-label={tCart("closeOverlay")}
             onClick={() => setDrawerOpen(false)}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -45,19 +49,19 @@ export function CartDrawer() {
             transition={drawerTransition}
           >
             <div className="flex items-center justify-between border-b border-primary/15 px-6 py-5">
-              <h2 className="font-headline-lg text-headline-lg-mobile text-primary">Корзина</h2>
+              <h2 className="font-headline-lg text-headline-lg-mobile text-primary">{tCart("title")}</h2>
               <button
                 type="button"
                 className="text-on-surface-variant hover:text-primary"
                 onClick={() => setDrawerOpen(false)}
-                aria-label="Закрыть"
+                aria-label={tCommon("close")}
               >
                 <X className="h-6 w-6" strokeWidth={2} aria-hidden />
               </button>
             </div>
             <div className="flex-1 space-y-4 overflow-y-auto px-6 py-6">
               {lines.length === 0 ? (
-                <p className="font-body-md text-on-surface-variant">Корзина пока пуста.</p>
+                <p className="font-body-md text-on-surface-variant">{tCart("empty")}</p>
               ) : (
                 lines.map((line) => (
                   <div
@@ -67,13 +71,13 @@ export function CartDrawer() {
                     <div className="relative h-20 w-24 shrink-0 overflow-hidden">
                       <Image
                         src={line.item.imageSrc}
-                        alt={line.item.imageAlt}
+                        alt={tMenu(`items.${line.item.id}.imageAlt`)}
                         fill
                         className="object-cover"
                       />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <p className="font-title-italic text-primary">{line.item.name}</p>
+                      <p className="font-title-italic text-primary">{tMenu(`items.${line.item.id}.name`)}</p>
                       <p className="text-sm text-on-surface-variant">
                         {formatTenge(line.item.priceTenge)} × {line.quantity}
                       </p>
@@ -82,7 +86,7 @@ export function CartDrawer() {
                           type="button"
                           className="h-8 w-8 rounded border border-primary/30 text-primary hover:bg-primary/10"
                           onClick={() => setQuantity(line.item.id, line.quantity - 1)}
-                          aria-label="Меньше"
+                          aria-label={tCommon("less")}
                         >
                           −
                         </button>
@@ -93,7 +97,7 @@ export function CartDrawer() {
                           type="button"
                           className="h-8 w-8 rounded border border-primary/30 text-primary hover:bg-primary/10"
                           onClick={() => setQuantity(line.item.id, line.quantity + 1)}
-                          aria-label="Больше"
+                          aria-label={tCommon("more")}
                         >
                           +
                         </button>
@@ -102,7 +106,7 @@ export function CartDrawer() {
                           className="ml-auto text-xs uppercase tracking-widest text-on-surface-variant hover:text-primary"
                           onClick={() => removeLine(line.item.id)}
                         >
-                          Удалить
+                          {tCommon("delete")}
                         </button>
                       </div>
                     </div>
@@ -112,13 +116,13 @@ export function CartDrawer() {
             </div>
             <div className="border-t border-primary/15 p-6">
               <div className="mb-4 flex items-center justify-between">
-                <span className="font-body-lg text-primary">Итого</span>
+                <span className="font-body-lg text-primary">{tCommon("total")}</span>
                 <span className="font-body-lg font-semibold text-primary">
                   {formatTenge(totalTenge)}
                 </span>
               </div>
               <p className="text-center font-body-md text-xs text-on-surface-variant/70">
-                Оформление заказа доступно на странице «Доставка».
+                {tCart("checkoutHint")}
               </p>
             </div>
           </motion.aside>

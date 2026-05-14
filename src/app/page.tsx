@@ -1,15 +1,5 @@
-import { HomeHeroSection } from "@/components/home/HomeHeroSection";
-import { WhyUsSection } from "@/components/home/WhyUsSection";
-import { GallerySection } from "@/components/home/GallerySection";
-import { FaqSection } from "@/components/home/FaqSection";
+import { redirect } from "next/navigation";
 
-export default function HomePage() {
-  return (
-    <>
-      <HomeHeroSection />
-      <WhyUsSection />
-      <GallerySection />
-      <FaqSection />
-    </>
-  );
+export default function RootPage() {
+  redirect("/ru");
 }

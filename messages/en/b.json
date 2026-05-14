@@ -1,0 +1,194 @@
+{
+  "Interior": {
+    "hero": {
+      "title": "The aesthetics",
+      "titleItalic": "of the golden ratio",
+      "description": "Step into an interior where every detail tells a story of luxury and seclusion. AURUM is a space for those who value quiet and impeccable style.",
+      "imageAlt": "AURUM restaurant interior"
+    },
+    "mainHall": {
+      "title": "Main dining room",
+      "caption": "An elegant main room that blends contemporary design, warmth, and comfort for every guest.",
+      "imageAlt": "AURUM main dining room",
+      "sideLabel": "THE CULTURE OF DETAIL",
+      "sideTitle": "Sensory perfection",
+      "sideText": "Warm amber light, velvet tones in the seating, and a calm rhythm—everything feels residential luxury, not cold hotel gloss."
+    },
+    "secondHall": {
+      "title": "Second dining perspective",
+      "lead": "Another angle on the same space—distinct from the bar and VIP zones.",
+      "imageAlt": "Second perspective of the AURUM dining room"
+    },
+    "bar": {
+      "eyebrow": "BAR LOUNGE",
+      "title": "The bar",
+      "text": "A contemporary bar with a welcoming mood, signature drinks, and a comfortable place to linger.",
+      "bullet1": "Signature cocktails and attentive bartenders",
+      "bullet2": "Soft lighting and intimate seating at the counter",
+      "imageAlt": "AURUM bar"
+    },
+    "vipMain": {
+      "title": "VIP rooms",
+      "subtitle": "Absolute privacy",
+      "imageAlt": "Main AURUM VIP interior",
+      "overlayText": "Our VIP rooms are designed for comfort and private dining."
+    },
+    "vipCabinet": {
+      "eyebrow": "PRIVACY",
+      "title": "VIP room",
+      "imageAlt": "AURUM VIP room"
+    },
+    "terrace": {
+      "eyebrow": "TERRACE",
+      "title": "Summer terrace",
+      "text": "The AURUM terrace is ideal for evening gatherings, meetings, and open-air dinners.",
+      "season": "SEASON: MAY – OCTOBER",
+      "imageAlt": "AURUM summer terrace"
+    },
+    "cta": {
+      "title": "Touch the legend",
+      "subtitle": "Reserve a table at AURUM and discover a new level of hospitality."
+    }
+  },
+  "InteriorCta": {
+    "book": "Reserve",
+    "tour": "Virtual tour"
+  },
+  "VirtualTour": {
+    "previewAlt": "AURUM interior preview",
+    "eyebrow": "Virtual tour",
+    "title": "Explore the AURUM interior",
+    "text": "Walk through the dining room and VIP areas at your own pace. A full 360° tour will appear here soon—for now, set the mood for your next visit.",
+    "open": "Open virtual tour",
+    "dialogTitle": "Tour coming soon",
+    "dialogText": "We are connecting a 2GIS / 360° panorama. If you need a walkthrough now, our host can guide you during your reservation."
+  },
+  "Delivery": {
+    "heroAlt": "AURUM delivery",
+    "titleBefore": "Delivery",
+    "lead": "Enjoy AURUM dishes and drinks at home. We prepare your order and deliver across Almaty on your schedule—with premium packaging and temperature control.",
+    "viewMenu": "View menu",
+    "orderCta": "Place an order",
+    "whyTitle": "AURUM delivery is ideal when:",
+    "why1Title": "You want your order quickly and piping hot",
+    "why1Text": "Thermal packaging and courier logistics keep dishes as close to the restaurant experience as possible.",
+    "why2Title": "You prefer not to cook tonight",
+    "why2Text": "Let the AURUM kitchen handle the evening—from starters to signature mains.",
+    "why3Title": "You want to relax at home with restaurant-level food",
+    "why3Text": "Premium service without leaving home—for quiet evenings and gatherings.",
+    "why4Title": "You are hosting a celebration or a simple special night",
+    "why4Text": "We assemble sets and presentation for the occasion—from an intimate dinner to a family table."
+  },
+  "DeliveryForm": {
+    "title": "Checkout",
+    "intro": "Fill in your details—the manager will confirm your order. Online payment via Kaspi.kz.",
+    "contactsHeading": "Contact details",
+    "deliveryHeading": "Delivery",
+    "paymentHeading": "Payment",
+    "paymentNote": "Primary payment is Kaspi.kz (button on the right). Card fields below are optional if an alternative is required.",
+    "fio": "Full name",
+    "fioPh": "John Smith",
+    "phone": "Phone",
+    "phonePh": "+7 (___) ___-__-__",
+    "email": "Email",
+    "emailPh": "name@mail.com",
+    "street": "City, street, building",
+    "streetPh": "Almaty, avenue…, building …",
+    "intercom": "Intercom",
+    "intercomPh": "0000",
+    "apt": "Apartment / office",
+    "aptPh": "10",
+    "floor": "Floor",
+    "floorPh": "5",
+    "comment": "Comment",
+    "commentPh": "Entrance, landmarks, courier notes…",
+    "card": "Card number",
+    "cardPh": "0000 0000 0000 0000",
+    "exp": "Expiry",
+    "expPh": "MM/YY",
+    "cardName": "Name on card (optional)",
+    "cardNamePh": "IVAN IVANOV",
+    "orderTitle": "Your order ({count})",
+    "promo": "Promo code",
+    "promoPh": "Enter promo code",
+    "deliveryRow": "Delivery",
+    "orderRow": "Your order",
+    "totalRow": "Total",
+    "payKaspi": "Pay with Kaspi.kz",
+    "secureNote": "Secure payment via Kaspi",
+    "emptyCartHint": "Add items from the Menu page so your order fills in automatically.",
+    "staticItems": {
+      "f1": {
+        "name": "Seafood platter"
+      },
+      "f2": {
+        "name": "Ribeye steak “Gold”"
+      }
+    }
+  },
+  "Reviews": {
+    "eyebrow": "Guest voices",
+    "title": "Guest reviews",
+    "intro": "Reviews focused on atmosphere and quality—to ease uncertainty and help you choose the right visit format.",
+    "prevAria": "Previous reviews",
+    "nextAria": "Next reviews",
+    "items": {
+      "1": {
+        "author": "Anna Skorova",
+        "date": "12 March 2026",
+        "text": "“Incredible atmosphere and flawless service. AURUM’s kitchen is true art that removes the fear of the unknown: everything feels predictably premium.”"
+      },
+      "2": {
+        "author": "Elena Muratova",
+        "date": "3 March 2026",
+        "text": "“Where privacy meets luxury. Perfect for business meetings and romantic evenings—quality and atmosphere are top tier.”"
+      },
+      "3": {
+        "author": "Dmitry Kaliyev",
+        "date": "18 February 2026",
+        "text": "“The cocktail menu is inspiring. Every drink tells a story, and the team is attentive to details.”"
+      },
+      "4": {
+        "author": "Maria Tleubergen",
+        "date": "5 February 2026",
+        "text": "“We celebrated an anniversary—service was impeccable, dishes bold and memorable. We will definitely return.”"
+      }
+    }
+  },
+  "ReviewForm": {
+    "title": "Leave a review",
+    "name": "Name",
+    "namePh": "First and last name",
+    "contact": "Phone or email",
+    "contactPh": "+7 or email",
+    "text": "Your review",
+    "textPh": "Tell us about your visit…",
+    "submit": "Submit review",
+    "ratingAria": "Rating {n}",
+    "success": "Thank you! Your review appears in the feed on this page. This demo runs without a server—data is not sent to a CRM and stays in your browser until you refresh.",
+    "guestDefault": "Guest",
+    "justNow": "Just now"
+  },
+  "Contacts": {
+    "title": "Contact",
+    "phoneSocial": "Phone & social",
+    "address": "Address",
+    "hours": "Opening hours",
+    "parking": "Parking",
+    "map": "Map",
+    "mapEmbedTitle": "Map — AURUM restaurant, Almaty",
+    "line1": "NURly Tau business centre",
+    "line2": "248 Dostyk Avenue, block A",
+    "line3": "Almaty, Kazakhstan",
+    "parkingText": "Guest parking at the complex entrance. Share your car number when booking—we will arrange access.",
+    "hoursWeekdayLabel": "Mon — Thu",
+    "hoursWeekendLabel": "Fri — Sun",
+    "instagram": "Instagram",
+    "whatsapp": "WhatsApp"
+  },
+  "ContactMap": {
+    "defaultTitle": "Map — how to reach AURUM",
+    "loadFail": "The map could not load here. Open the route in Google Maps.",
+    "openMap": "Open map"
+  }
+}

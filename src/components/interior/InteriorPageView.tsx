@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { Circle, Sparkles, Sun } from "lucide-react";
+import { useTranslations } from "next-intl";
 import {
   interiorBar,
   interiorHero,
@@ -16,7 +17,10 @@ import { InteriorReveal } from "@/components/interior/InteriorReveal";
 import { InteriorParallaxMedia } from "@/components/interior/InteriorParallaxMedia";
 import { VirtualTourSection } from "@/components/interior/VirtualTourSection";
 
-export default function InteriorPage() {
+export function InteriorPageView() {
+  const t = useTranslations("Interior");
+  const barBullets = [t("bar.bullet1"), t("bar.bullet2")];
+
   return (
     <main className="interior-page-bg font-body-md text-on-background">
       <header className="relative flex h-[819px] items-end overflow-hidden px-margin-mobile pb-section-gap md:px-margin-desktop">
@@ -25,7 +29,7 @@ export default function InteriorPage() {
             <div className="relative h-full min-h-[100vh] w-full">
               <Image
                 src={interiorHero.imageSrc}
-                alt={interiorHero.imageAlt}
+                alt={t("hero.imageAlt")}
                 fill
                 priority
                 className="object-cover"
@@ -39,10 +43,10 @@ export default function InteriorPage() {
         </div>
         <InteriorReveal className="relative z-10 max-w-3xl">
           <h1 className="mb-6 font-display-lg text-display-lg text-on-surface">
-            {interiorHero.title}{" "}
-            <span className="font-title-italic italic text-primary">{interiorHero.titleItalic}</span>
+            {t("hero.title")}{" "}
+            <span className="font-title-italic italic text-primary">{t("hero.titleItalic")}</span>
           </h1>
-          <p className="max-w-xl font-body-lg text-body-lg text-on-surface-variant">{interiorHero.description}</p>
+          <p className="max-w-xl font-body-lg text-body-lg text-on-surface-variant">{t("hero.description")}</p>
         </InteriorReveal>
       </header>
 
@@ -57,7 +61,7 @@ export default function InteriorPage() {
                 id="interior-main-hall-heading"
                 className="shrink-0 font-headline-lg text-headline-lg text-on-surface"
               >
-                {interiorMainHall.title}
+                {t("mainHall.title")}
               </h2>
               <div className="h-px flex-1 bg-gradient-to-r from-primary/45 via-primary/25 to-transparent interior-gold-line" />
             </div>
@@ -67,7 +71,7 @@ export default function InteriorPage() {
                   <div className="relative h-full w-full">
                     <Image
                       src={interiorMainHall.imageSrc}
-                      alt={interiorMainHall.imageAlt}
+                      alt={t("mainHall.imageAlt")}
                       fill
                       className="object-cover transition-transform duration-[1.1s] ease-out group-hover:scale-[1.04]"
                       sizes="(max-width:768px) 100vw, 66vw"
@@ -76,16 +80,16 @@ export default function InteriorPage() {
                 </InteriorParallaxMedia>
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0a0604]/85 via-transparent to-[#1a0f08]/25" />
                 <div className="absolute bottom-6 left-6 max-w-sm rounded-md border border-primary/15 bg-[#0c0805]/75 p-6 shadow-lg backdrop-blur-md">
-                  <p className="font-body-md text-on-surface">{interiorMainHall.caption}</p>
+                  <p className="font-body-md text-on-surface">{t("mainHall.caption")}</p>
                 </div>
               </div>
               <div className="col-span-12 flex min-h-[500px] flex-col md:col-span-4">
                 <div className="flex min-h-[500px] flex-1 flex-col justify-center rounded-lg border border-primary/20 border-l-primary-container bg-[#0f0a06]/90 p-8 shadow-inner backdrop-blur-sm md:min-h-[520px]">
-                  <span className="mb-4 font-label-caps text-primary">{interiorMainHall.sideCard.label}</span>
+                  <span className="mb-4 font-label-caps text-primary">{t("mainHall.sideLabel")}</span>
                   <h3 className="mb-4 font-headline-lg text-title-italic italic text-on-surface">
-                    {interiorMainHall.sideCard.title}
+                    {t("mainHall.sideTitle")}
                   </h3>
-                  <p className="font-body-md text-on-surface-variant">{interiorMainHall.sideCard.text}</p>
+                  <p className="font-body-md text-on-surface-variant">{t("mainHall.sideText")}</p>
                   <div className="mt-6 h-px w-full bg-gradient-to-r from-primary/35 to-transparent interior-gold-line" />
                 </div>
               </div>
@@ -105,11 +109,11 @@ export default function InteriorPage() {
                     id="interior-second-hall-heading"
                     className="shrink-0 font-headline-lg text-headline-lg text-on-surface"
                   >
-                    {interiorSecondHall.title}
+                    {t("secondHall.title")}
                   </h2>
                   <div className="hidden h-px flex-1 bg-gradient-to-r from-primary/40 via-primary/20 to-transparent interior-gold-line md:block" />
                 </div>
-                <p className="max-w-2xl font-body-md text-on-surface-variant">{interiorSecondHall.lead}</p>
+                <p className="max-w-2xl font-body-md text-on-surface-variant">{t("secondHall.lead")}</p>
               </div>
             </div>
             <div className="group relative overflow-hidden rounded-lg">
@@ -117,7 +121,7 @@ export default function InteriorPage() {
                 <div className="relative h-full w-full">
                   <Image
                     src={interiorSecondHall.imageSrc}
-                    alt={interiorSecondHall.imageAlt}
+                    alt={t("secondHall.imageAlt")}
                     fill
                     className="object-cover transition-transform duration-[1.1s] ease-out group-hover:scale-[1.035]"
                     sizes="100vw"
@@ -138,16 +142,14 @@ export default function InteriorPage() {
             <div className="grid grid-cols-1 items-center gap-16 md:grid-cols-2 md:gap-24">
               <div className="order-2 md:order-1">
                 <div className="mb-12">
-                  <span className="mb-4 block font-label-caps tracking-[0.22em] text-primary">
-                    {interiorBar.eyebrow}
-                  </span>
+                  <span className="mb-4 block font-label-caps tracking-[0.22em] text-primary">{t("bar.eyebrow")}</span>
                   <h2 id="interior-bar-heading" className="mb-8 font-display-lg text-headline-lg text-on-surface">
-                    {interiorBar.title}
+                    {t("bar.title")}
                   </h2>
                   <div className="mb-8 h-px w-24 bg-gradient-to-r from-primary via-primary/40 to-transparent interior-gold-line" />
-                  <p className="mb-12 font-body-lg text-body-lg text-on-surface-variant">{interiorBar.text}</p>
+                  <p className="mb-12 font-body-lg text-body-lg text-on-surface-variant">{t("bar.text")}</p>
                   <ul className="space-y-6">
-                    {interiorBar.bullets.map((b) => (
+                    {barBullets.map((b) => (
                       <li key={b} className="flex items-center gap-4">
                         <Circle className="h-2 w-2 shrink-0 fill-primary text-primary" aria-hidden />
                         <span className="font-body-md text-on-surface">{b}</span>
@@ -163,7 +165,7 @@ export default function InteriorPage() {
                     <div className="relative h-full w-full">
                       <Image
                         src={interiorBar.imageSrc}
-                        alt={interiorBar.imageAlt}
+                        alt={t("bar.imageAlt")}
                         fill
                         className="object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-[1.045]"
                         sizes="(max-width:768px) 100vw, 50vw"
@@ -185,9 +187,9 @@ export default function InteriorPage() {
             <div className="mb-12 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
               <div>
                 <h2 id="interior-vip-heading" className="font-headline-lg text-headline-lg text-on-surface">
-                  {interiorVipMain.title}
+                  {t("vipMain.title")}
                 </h2>
-                <p className="font-title-italic italic text-primary/90">{interiorVipMain.subtitle}</p>
+                <p className="font-title-italic italic text-primary/90">{t("vipMain.subtitle")}</p>
               </div>
               <div className="hidden h-px max-w-md flex-1 bg-gradient-to-r from-primary/35 via-primary/15 to-transparent interior-gold-line md:block" />
             </div>
@@ -198,7 +200,7 @@ export default function InteriorPage() {
                   <div className="relative h-full w-full">
                     <Image
                       src={interiorVipMain.imageSrc}
-                      alt={interiorVipMain.imageAlt}
+                      alt={t("vipMain.imageAlt")}
                       fill
                       className="object-cover transition-all duration-[1.2s] ease-out group-hover:scale-[1.04]"
                       sizes="100vw"
@@ -206,26 +208,24 @@ export default function InteriorPage() {
                   </div>
                 </InteriorParallaxMedia>
                 <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-[#0a0604]/92 via-[#0a0604]/35 to-transparent p-6 md:p-10">
-                  <p className="max-w-2xl font-body-lg text-on-surface md:text-body-lg">
-                    {interiorVipMain.overlayText}
-                  </p>
+                  <p className="max-w-2xl font-body-lg text-on-surface md:text-body-lg">{t("vipMain.overlayText")}</p>
                 </div>
               </div>
 
               <div>
                 <div className="mb-6 flex flex-wrap items-center gap-4">
-                  <span className="font-label-caps tracking-[0.22em] text-primary">{interiorVipCabinet.eyebrow}</span>
-                  <div className="h-px flex-1 bg-gradient-to-r from-primary/30 to-transparent interior-gold-line min-w-[4rem]" />
+                  <span className="font-label-caps tracking-[0.22em] text-primary">{t("vipCabinet.eyebrow")}</span>
+                  <div className="h-px min-w-[4rem] flex-1 bg-gradient-to-r from-primary/30 to-transparent interior-gold-line" />
                 </div>
                 <h3 className="mb-8 font-display-lg text-headline-lg-mobile text-on-surface md:text-headline-lg">
-                  {interiorVipCabinet.title}
+                  {t("vipCabinet.title")}
                 </h3>
                 <div className="group relative overflow-hidden rounded-lg border border-primary/15 shadow-xl">
                   <InteriorParallaxMedia className="h-[320px] w-full md:h-[400px]" range={14}>
                     <div className="relative h-full w-full">
                       <Image
                         src={interiorVipCabinet.imageSrc}
-                        alt={interiorVipCabinet.imageAlt}
+                        alt={t("vipCabinet.imageAlt")}
                         fill
                         className="object-cover transition-transform duration-[1.15s] ease-out group-hover:scale-[1.04]"
                         sizes="100vw"
@@ -247,17 +247,17 @@ export default function InteriorPage() {
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_55%_45%_at_15%_40%,rgba(180,120,60,0.06),transparent_55%)]" />
             <div className="relative z-10 grid grid-cols-1 items-center gap-14 md:grid-cols-2 md:gap-20">
               <div className="order-2 md:order-1">
-                <span className="mb-4 block font-label-caps tracking-[0.22em] text-primary">{interiorTerrace.eyebrow}</span>
+                <span className="mb-4 block font-label-caps tracking-[0.22em] text-primary">{t("terrace.eyebrow")}</span>
                 <h2
                   id="interior-terrace-heading"
                   className="mb-8 font-display-lg text-headline-lg-mobile text-on-surface md:text-display-lg"
                 >
-                  {interiorTerrace.title}
+                  {t("terrace.title")}
                 </h2>
                 <div className="mb-8 h-px w-24 bg-gradient-to-r from-primary via-primary/40 to-transparent interior-gold-line" />
-                <p className="mb-10 max-w-xl font-body-lg text-body-lg text-on-surface-variant">{interiorTerrace.text}</p>
-                <div className="flex items-center justify-between gap-4 border-t border-primary/15 pt-6 font-label-caps text-label-caps tracking-widest text-primary max-w-md">
-                  <span>{interiorTerrace.season}</span>
+                <p className="mb-10 max-w-xl font-body-lg text-body-lg text-on-surface-variant">{t("terrace.text")}</p>
+                <div className="flex max-w-md items-center justify-between gap-4 border-t border-primary/15 pt-6 font-label-caps text-label-caps tracking-widest text-primary">
+                  <span>{t("terrace.season")}</span>
                   <Sun className="h-5 w-5 shrink-0 text-primary" strokeWidth={1.5} aria-hidden />
                 </div>
               </div>
@@ -267,7 +267,7 @@ export default function InteriorPage() {
                     <div className="relative h-full w-full">
                       <Image
                         src={interiorTerrace.imageSrc}
-                        alt={interiorTerrace.imageAlt}
+                        alt={t("terrace.imageAlt")}
                         fill
                         className="object-cover transition-transform duration-[1.15s] ease-out group-hover:scale-[1.04]"
                         sizes="(max-width:768px) 100vw, 50vw"
@@ -291,10 +291,8 @@ export default function InteriorPage() {
                 strokeWidth={1.25}
                 aria-hidden
               />
-              <h2 className="font-display-lg text-headline-lg text-on-surface">Прикоснитесь к легенде</h2>
-              <p className="font-body-lg italic text-on-surface-variant">
-                Забронируйте столик в AURUM и откройте для себя новый уровень гостеприимства.
-              </p>
+              <h2 className="font-display-lg text-headline-lg text-on-surface">{t("cta.title")}</h2>
+              <p className="font-body-lg italic text-on-surface-variant">{t("cta.subtitle")}</p>
               <InteriorCtaButtons />
             </div>
           </section>

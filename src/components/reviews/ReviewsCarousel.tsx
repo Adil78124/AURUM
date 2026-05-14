@@ -3,6 +3,7 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useCallback, useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import type { Review } from "@/data/reviews";
 import { ReviewCard } from "@/components/reviews/ReviewCard";
 import { premiumEase } from "@/lib/animations";
@@ -12,6 +13,7 @@ const VISIBLE = 3;
 export function ReviewsCarousel({ items }: { items: Review[] }) {
   const [start, setStart] = useState(0);
   const reduced = useReducedMotion();
+  const t = useTranslations("Reviews");
   const maxStart = Math.max(0, items.length - VISIBLE);
 
   useEffect(() => {
@@ -53,7 +55,7 @@ export function ReviewsCarousel({ items }: { items: Review[] }) {
           onClick={prev}
           disabled={start === 0}
           className="flex h-12 w-12 items-center justify-center rounded-full border border-primary/25 text-primary transition hover:bg-primary/10 disabled:cursor-not-allowed disabled:opacity-30"
-          aria-label="Предыдущие отзывы"
+          aria-label={t("prevAria")}
         >
           <ChevronLeft className="h-6 w-6" strokeWidth={2} aria-hidden />
         </button>
@@ -62,7 +64,7 @@ export function ReviewsCarousel({ items }: { items: Review[] }) {
           onClick={next}
           disabled={start >= maxStart}
           className="flex h-12 w-12 items-center justify-center rounded-full border border-primary/25 text-primary transition hover:bg-primary/10 disabled:cursor-not-allowed disabled:opacity-30"
-          aria-label="Следующие отзывы"
+          aria-label={t("nextAria")}
         >
           <ChevronRight className="h-6 w-6" strokeWidth={2} aria-hidden />
         </button>

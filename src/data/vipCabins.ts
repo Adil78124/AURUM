@@ -1,5 +1,3 @@
-export const vipCabins = [
-  { id: "aurum-i", label: "Кабинка AURUM I" },
-  { id: "aurum-ii", label: "Кабинка AURUM II" },
-  { id: "aurum-iii", label: "Кабинка AURUM III (панорамная)" },
-] as const;
+export type VipCabinId = "aurum-i" | "aurum-ii" | "aurum-iii";
+
+export const vipCabinIds: VipCabinId[] = ["aurum-i", "aurum-ii", "aurum-iii"];

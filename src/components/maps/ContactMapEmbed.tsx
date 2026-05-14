@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/cn";
 import { contacts } from "@/data/contacts";
 
@@ -12,10 +13,9 @@ type Props = {
 /**
  * Google Maps embed (без API key). При сбое загрузки — кнопка «Открыть карту».
  */
-export function ContactMapEmbed({
-  className,
-  title = "Карта — как добраться до AURUM",
-}: Props) {
+export function ContactMapEmbed({ className, title }: Props) {
+  const t = useTranslations("ContactMap");
+  const iframeTitle = title ?? t("defaultTitle");
   const [loadTimedOut, setLoadTimedOut] = useState(false);
   const loadedRef = useRef(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -48,7 +48,7 @@ export function ContactMapEmbed({
       <div className="overflow-hidden rounded-lg border border-primary/20 bg-[#0a0705] shadow-inner">
         {!loadTimedOut ? (
           <iframe
-            title={title}
+            title={iframeTitle}
             src={contacts.mapEmbedSrc}
             className="block h-[320px] w-full border-0 md:h-[420px]"
             loading="lazy"
@@ -58,16 +58,14 @@ export function ContactMapEmbed({
           />
         ) : (
           <div className="flex h-[320px] flex-col items-center justify-center gap-4 bg-[#0a0705] px-6 text-center md:h-[420px]">
-            <p className="max-w-sm font-body-md text-on-surface-variant">
-              Карта не загрузилась в этом окне. Откройте маршрут в Google Maps.
-            </p>
+            <p className="max-w-sm font-body-md text-on-surface-variant">{t("loadFail")}</p>
             <a
               href={contacts.mapOpenUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center border border-primary/70 bg-primary-container/90 px-8 py-3 font-label-caps text-[11px] uppercase tracking-[0.16em] text-on-primary transition hover:brightness-110"
             >
-              Открыть карту
+              {t("openMap")}
             </a>
           </div>
         )}
@@ -79,7 +77,7 @@ export function ContactMapEmbed({
           rel="noopener noreferrer"
           className="mt-3 inline-block font-label-caps text-[11px] uppercase tracking-[0.14em] text-primary transition hover:underline"
         >
-          Открыть карту
+          {t("openMap")}
         </a>
       ) : null}
     </div>

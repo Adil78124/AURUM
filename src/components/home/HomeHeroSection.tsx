@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { useUiModals } from "@/context/UiModalsContext";
 import { HERO_BACKGROUND_IMAGE } from "@/data/heroBackground";
 import { premiumEase } from "@/lib/animations";
@@ -9,6 +10,7 @@ import { premiumEase } from "@/lib/animations";
 export function HomeHeroSection() {
   const { openBooking, openVip } = useUiModals();
   const reduced = useReducedMotion();
+  const t = useTranslations("Home");
 
   return (
     <section className="relative flex h-screen w-full items-center justify-center overflow-hidden">
@@ -16,7 +18,7 @@ export function HomeHeroSection() {
         <div className="hero-kenburns-inner relative h-full w-full">
           <Image
             src={HERO_BACKGROUND_IMAGE}
-            alt="Интерьер ресторана AURUM"
+            alt={t("heroImageAlt")}
             fill
             priority
             className="object-cover"
@@ -33,7 +35,7 @@ export function HomeHeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: reduced ? 0.35 : 0.85, ease: premiumEase, delay: reduced ? 0 : 0.12 }}
         >
-          Welcome to Our Restaurant
+          {t("heroEyebrow")}
         </motion.p>
         <motion.h1
           className="mb-12 font-display-lg text-[56px] font-black leading-none tracking-[0.2em] text-on-surface antialiased drop-shadow-[0_2px_24px_rgba(0,0,0,0.45)] sm:text-[80px] md:text-[120px]"
@@ -66,7 +68,7 @@ export function HomeHeroSection() {
             onClick={openBooking}
             className="hero-gold-pulse bg-primary-container px-12 py-5 font-label-caps text-label-caps uppercase tracking-widest text-on-primary transition-all gold-glow-strong"
           >
-            Забронировать столик
+            {t("bookTable")}
           </motion.button>
           <motion.button
             type="button"
@@ -77,7 +79,7 @@ export function HomeHeroSection() {
             onClick={openVip}
             className="border border-primary/80 px-12 py-5 font-label-caps text-label-caps uppercase tracking-widest text-on-surface transition-all hover:border-primary hover:bg-primary/10 hover:text-on-surface"
           >
-            VIP кабинки
+            {t("vipCabins")}
           </motion.button>
         </motion.div>
       </div>

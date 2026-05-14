@@ -1,10 +1,12 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { premiumEase, viewportOnce } from "@/lib/animations";
 
 export function AboutQuoteSection() {
   const reduced = useReducedMotion();
+  const t = useTranslations("AboutQuote");
 
   return (
     <section className="relative overflow-hidden py-section-gap">
@@ -30,7 +32,7 @@ export function AboutQuoteSection() {
           viewport={viewportOnce}
           transition={{ duration: reduced ? 0.3 : 0.95, ease: premiumEase, delay: reduced ? 0 : 0.08 }}
         >
-          Золото — это не только блеск в интерьере, это ценность моментов, проведённых за нашим столом.
+          {t("text")}
         </motion.p>
         <motion.span
           className="mt-6 block font-display-lg text-6xl leading-none text-primary/25 md:text-7xl"
