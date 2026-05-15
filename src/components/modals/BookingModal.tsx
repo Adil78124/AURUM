@@ -4,6 +4,7 @@ import type { InputHTMLAttributes, ReactNode, TextareaHTMLAttributes } from "rea
 import { Calendar, Clock, Users } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useUiModals } from "@/context/UiModalsContext";
+import { useReservationSubmit } from "@/hooks/useReservationSubmit";
 import { LuxuryReservationModal } from "@/components/modals/LuxuryReservationModal";
 
 const BOOKING_HERO = "/IMG_5183.JPG.jpeg";
@@ -77,6 +78,7 @@ function PreorderField({
 export function BookingModal() {
   const { bookingOpen, closeBooking } = useUiModals();
   const t = useTranslations("Booking");
+  const { submit, saved, formError } = useReservationSubmit("Booking", closeBooking);
 
   return (
     <LuxuryReservationModal
@@ -94,23 +96,26 @@ export function BookingModal() {
         className="flex flex-col gap-3 md:min-h-0 md:flex-1 md:justify-between md:gap-2.5 lg:gap-3"
         onSubmit={(e) => {
           e.preventDefault();
-          closeBooking();
+          submit(e.currentTarget, "standard");
         }}
+        noValidate
       >
         <div className="flex flex-col gap-3 md:gap-2.5 lg:gap-3">
-          <PillFull label={t("name")} name="name" placeholder={t("namePh")} />
-          <PillFull label={t("phone")} name="phone" type="tel" placeholder={t("phonePh")} />
+          <PillFull label={t("name")} name="name" placeholder={t("namePh")} required autoComplete="name" />
+          <PillFull label={t("phone")} name="phone" type="tel" placeholder={t("phonePh")} required autoComplete="tel" />
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 md:gap-2.5 lg:gap-3">
             <PillField
               label={t("date")}
               name="date"
               type="date"
+              required
               icon={<Calendar className="h-4 w-4 shrink-0" strokeWidth={1.5} />}
             />
             <PillField
               label={t("time")}
               name="time"
               type="time"
+              required
               icon={<Clock className="h-4 w-4 shrink-0" strokeWidth={1.5} />}
             />
             <PillField
@@ -118,6 +123,7 @@ export function BookingModal() {
               name="guests"
               type="number"
               min={1}
+              required
               placeholder={t("guestsPh")}
               icon={<Users className="h-4 w-4 shrink-0" strokeWidth={1.5} />}
             />
@@ -127,12 +133,22 @@ export function BookingModal() {
         </div>
 
         <div className="mt-1 flex flex-col gap-2.5 border-t border-white/5 pt-3 md:mt-0 md:shrink-0 md:pt-3">
+          {formError ? (
+            <p className="text-xs text-red-400" role="alert">
+              {formError}
+            </p>
+          ) : null}
           <button
             type="submit"
             className="w-full rounded-full bg-white px-8 py-3 text-center text-xs font-bold uppercase tracking-[0.2em] text-[#2563eb] shadow-md transition hover:bg-zinc-100 sm:w-auto sm:self-start sm:px-10"
           >
-            {t("submit")}
+            {saved ? t("savedLabel") : t("submit")}
           </button>
+          {saved ? (
+            <p className="text-xs text-primary/90" role="status">
+              {t("successHint")}
+            </p>
+          ) : null}
           <p className="text-[9px] leading-relaxed text-zinc-600 md:max-w-lg">{t("consent")}</p>
         </div>
       </form>

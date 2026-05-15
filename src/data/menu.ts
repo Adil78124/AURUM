@@ -11,6 +11,9 @@ export type MenuItem = {
   category: MenuCategoryId;
   priceTenge: number;
   imageSrc: string;
+  /** From localStorage menu when admin overrides i18n copy. */
+  title?: string;
+  description?: string;
 };
 
 export const menuItems: MenuItem[] = [

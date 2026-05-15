@@ -3,7 +3,8 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
-import { menuItems, type MenuCategoryId } from "@/data/menu";
+import type { MenuCategoryId } from "@/data/menu";
+import { useManageData } from "@/context/ManageDataContext";
 import { MenuCategoryNav } from "@/components/menu/MenuCategoryNav";
 import { MenuCard } from "@/components/menu/MenuCard";
 import { MotionGoldLine } from "@/components/motion/MotionGoldLine";
@@ -14,10 +15,12 @@ export function MenuPageView() {
   const [active, setActive] = useState<MenuCategoryId>("starters");
   const reduced = useReducedMotion();
   const t = useTranslations("Menu");
+  const { menu } = useManageData();
+  const items = menu.menuItemsForSite;
 
   const filtered = useMemo(
-    () => menuItems.filter((i) => i.category === active),
-    [active],
+    () => items.filter((i) => i.category === active),
+    [active, items],
   );
 
   return (

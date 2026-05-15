@@ -226,7 +226,13 @@
     "preorder": "Preorder dishes",
     "preorderPh": "Dishes and portions…",
     "submit": "Reserve a table",
-    "consent": "By submitting, you agree to the processing of personal data under our privacy policy."
+    "consent": "By submitting, you agree to the processing of personal data under our privacy policy.",
+    "successTitle": "Request received",
+    "successMessage": "Your reservation is registered. We will call to confirm.",
+    "successHint": "Expect a call from our team shortly.",
+    "savedLabel": "Reservation saved ✓",
+    "validationError": "Please fill in name, phone, date, and time.",
+    "saveError": "Could not save your request. Please try again."
   },
   "Vip": {
     "heroAlt": "AURUM VIP room",
@@ -247,7 +253,13 @@
     "notePh": "Occasion, requests…",
     "preorder": "Preorder dishes",
     "preorderPh": "Dishes and quantities…",
-    "submit": "Send request"
+    "submit": "Send request",
+    "successTitle": "VIP request received",
+    "successMessage": "Your VIP room request is registered. We will contact you soon.",
+    "successHint": "Expect a call to confirm date and preorder.",
+    "savedLabel": "VIP request saved ✓",
+    "validationError": "Please fill in name, phone, date, and time.",
+    "saveError": "Could not save your request. Please try again."
   },
   "VipCabins": {
     "aurum-i": "AURUM Room I",

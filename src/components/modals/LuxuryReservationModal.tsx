@@ -1,6 +1,8 @@
 "use client";
 
 import type { ReactNode } from "react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import { X } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -31,17 +33,41 @@ export function LuxuryReservationModal({
   children,
 }: LuxuryReservationModalProps) {
   const t = useTranslations("Common");
-  if (!open) return null;
+  const [mounted, setMounted] = useState(false);
 
-  return (
+  useEffect(() => setMounted(true), []);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [open, onClose]);
+
+  if (!open || !mounted) return null;
+
+  return createPortal(
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto overflow-x-hidden bg-black/85 p-3 backdrop-blur-md sm:p-5"
+      className="notranslate fixed inset-0 z-[200] flex items-center justify-center overflow-y-auto overflow-x-hidden bg-black/85 p-3 backdrop-blur-md sm:p-5"
       role="dialog"
       aria-modal="true"
       aria-labelledby={titleId}
+      translate="no"
+      onMouseDown={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
     >
-      <div className="my-auto flex w-full max-w-[min(1160px,calc(100vw-1.5rem))] flex-col overflow-hidden rounded-[1.75rem] border border-primary/20 bg-[#0c0a08] shadow-[0_0_0_1px_rgba(255,228,175,0.06),0_40px_100px_rgba(0,0,0,0.65)] ring-1 ring-white/5 md:my-8 md:max-h-[min(92vh,720px)] md:min-h-[min(600px,82vh)] md:flex-row md:items-stretch md:rounded-[2rem]">
-        {/* Visual column */}
+      <div
+        className="my-auto flex w-full max-w-[min(1160px,calc(100vw-1.5rem))] flex-col overflow-hidden rounded-[1.75rem] border border-primary/20 bg-[#0c0a08] shadow-[0_0_0_1px_rgba(255,228,175,0.06),0_40px_100px_rgba(0,0,0,0.65)] ring-1 ring-white/5 md:my-8 md:max-h-[min(92vh,720px)] md:min-h-[min(600px,82vh)] md:flex-row md:items-stretch md:rounded-[2rem]"
+        onMouseDown={(e) => e.stopPropagation()}
+      >
         <div className="relative h-44 w-full shrink-0 overflow-hidden sm:h-52 md:h-auto md:min-h-full md:w-[40%] md:max-w-[440px] lg:w-[43%]">
           <Image
             src={heroSrc}
@@ -63,7 +89,6 @@ export function LuxuryReservationModal({
           </div>
         </div>
 
-        {/* Form column */}
         <div className="relative flex min-h-0 min-w-0 flex-1 flex-col border-t border-white/10 bg-zinc-950/90 backdrop-blur-xl md:border-l md:border-t-0">
           <button
             type="button"
@@ -91,6 +116,7 @@ export function LuxuryReservationModal({
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }

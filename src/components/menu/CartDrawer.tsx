@@ -3,7 +3,7 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { X } from "lucide-react";
 import { useEffect } from "react";
-import Image from "next/image";
+import { MenuItemImage } from "@/components/menu/MenuItemImage";
 import { useTranslations } from "next-intl";
 import { useCart } from "@/context/CartContext";
 import { formatTenge } from "@/lib/formatTenge";
@@ -69,15 +69,17 @@ export function CartDrawer() {
                     className="glass-card flex gap-4 border border-primary/10 p-4"
                   >
                     <div className="relative h-20 w-24 shrink-0 overflow-hidden">
-                      <Image
+                      <MenuItemImage
                         src={line.item.imageSrc}
-                        alt={tMenu(`items.${line.item.id}.imageAlt`)}
-                        fill
-                        className="object-cover"
+                        alt={line.item.title ?? tMenu(`items.${line.item.id}.imageAlt`)}
+                        className="grayscale-0"
+                        sizes="96px"
                       />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <p className="font-title-italic text-primary">{tMenu(`items.${line.item.id}.name`)}</p>
+                      <p className="font-title-italic text-primary">
+                        {line.item.title ?? tMenu(`items.${line.item.id}.name`)}
+                      </p>
                       <p className="text-sm text-on-surface-variant">
                         {formatTenge(line.item.priceTenge)} × {line.quantity}
                       </p>

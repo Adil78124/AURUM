@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
+import { MenuItemImage } from "@/components/menu/MenuItemImage";
 import { useTranslations } from "next-intl";
 import type { MenuItem } from "@/data/menu";
 import { formatTenge } from "@/lib/formatTenge";
@@ -23,20 +23,23 @@ export function MenuCard({ item }: { item: MenuItem }) {
     >
       <div className="relative mb-6 aspect-[4/3] overflow-hidden">
         <motion.div className="relative h-full w-full" whileHover={{ scale: 1.04 }} transition={{ duration: 0.7, ease: premiumEase }}>
-          <Image
+          <MenuItemImage
             src={item.imageSrc}
-            alt={t(`items.${item.id}.imageAlt`)}
-            fill
-            className="object-cover grayscale-[30%] transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0"
+            alt={item.title ?? t(`items.${item.id}.imageAlt`)}
+            className="grayscale-[30%] transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0"
             sizes="(max-width:768px) 100vw, 33vw"
           />
         </motion.div>
       </div>
       <div className="mb-2 flex items-start justify-between gap-4">
-        <h3 className="font-headline-lg text-title-italic text-primary">{t(`items.${item.id}.name`)}</h3>
+        <h3 className="font-headline-lg text-title-italic text-primary">
+          {item.title ?? t(`items.${item.id}.name`)}
+        </h3>
         <span className="shrink-0 font-body-lg text-primary">{formatTenge(item.priceTenge)}</span>
       </div>
-      <p className="mb-8 flex-grow font-body-md text-on-surface-variant">{t(`items.${item.id}.description`)}</p>
+      <p className="mb-8 flex-grow font-body-md text-on-surface-variant">
+        {item.description ?? t(`items.${item.id}.description`)}
+      </p>
       <motion.button
         type="button"
         onClick={() => addItem(item, 1)}

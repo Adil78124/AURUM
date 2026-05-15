@@ -115,8 +115,18 @@
     "orderRow": "Your order",
     "totalRow": "Total",
     "payKaspi": "Pay with Kaspi.kz",
+    "payCard": "Card",
+    "payCash": "Cash",
+    "paymentMethodLabel": "Payment method",
+    "submitOrder": "Place order",
+    "savedLabel": "Order saved ✓",
+    "successTitle": "Order received",
+    "successMessage": "Our team will contact you to confirm.",
+    "successHint": "Order saved. View in /manage/delivery",
+    "validationError": "Please fill in name, phone, address, and order items.",
     "secureNote": "Secure payment via Kaspi",
-    "emptyCartHint": "Add items from the Menu page so your order fills in automatically.",
+    "emptyCartTitle": "Your cart is empty",
+    "emptyCartHint": "Add dishes from the Menu page — they will appear here automatically.",
     "staticItems": {
       "f1": {
         "name": "Seafood platter"
@@ -154,6 +164,11 @@
         "text": "“We celebrated an anniversary—service was impeccable, dishes bold and memorable. We will definitely return.”"
       }
     }
+  },
+  "BookingNotifications": {
+    "adminTitleStandard": "New table reservation",
+    "adminTitleVip": "New VIP request",
+    "adminMessage": "{name} · {date} {time} · {guests} guests"
   },
   "ReviewForm": {
     "title": "Leave a review",

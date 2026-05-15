@@ -77,15 +77,27 @@ export default async function LocaleLayout({
 
   setRequestLocale(locale);
   const messages = await getMessages();
+  const copyrightYear = new Date().getFullYear();
 
   return (
-    <html lang={locale} className={`dark ${playfair.variable} ${manrope.variable}`} suppressHydrationWarning>
-      <body className="flex min-h-screen flex-col bg-background font-body-md text-on-background antialiased">
+    <html
+      lang={locale}
+      translate="no"
+      className={`notranslate dark ${playfair.variable} ${manrope.variable}`}
+      suppressHydrationWarning
+    >
+      <head>
+        <meta name="google" content="notranslate" />
+      </head>
+      <body
+        className="notranslate flex min-h-screen flex-col bg-background font-body-md text-on-background antialiased"
+        suppressHydrationWarning
+      >
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Providers>
             <Header />
             <div className="flex-1">{children}</div>
-            <Footer />
+            <Footer copyrightYear={copyrightYear} />
             <BookingModal />
             <VipBookingModal />
             <RouteCartChrome />

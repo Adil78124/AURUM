@@ -21,7 +21,11 @@ const FOOTER_NAV = [
   { href: "/contacts", key: "contacts" as const },
 ] as const;
 
-export function Footer() {
+type FooterProps = {
+  copyrightYear: number;
+};
+
+export function Footer({ copyrightYear }: FooterProps) {
   const reduced = useReducedMotion();
   const tNav = useTranslations("Nav");
   const tFooter = useTranslations("Footer");
@@ -137,7 +141,7 @@ export function Footer() {
           transition={{ duration: 0.65, ease: premiumEase }}
         >
           <p className="text-sm text-on-surface-variant opacity-70">
-            {tFooter("copyright", { year: new Date().getFullYear() })}
+            {tFooter("copyright", { year: copyrightYear })}
           </p>
           <Link
             href="#"

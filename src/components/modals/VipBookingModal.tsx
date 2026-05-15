@@ -4,6 +4,7 @@ import type { InputHTMLAttributes, ReactNode, TextareaHTMLAttributes } from "rea
 import { Calendar, Clock, Users } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useUiModals } from "@/context/UiModalsContext";
+import { useReservationSubmit } from "@/hooks/useReservationSubmit";
 import { interiorPhotoPaths } from "@/data/interior";
 import { vipCabinIds } from "@/data/vipCabins";
 import { LuxuryReservationModal } from "@/components/modals/LuxuryReservationModal";
@@ -80,6 +81,7 @@ export function VipBookingModal() {
   const { vipOpen, closeVip } = useUiModals();
   const t = useTranslations("Vip");
   const tCabins = useTranslations("VipCabins");
+  const { submit, saved, formError } = useReservationSubmit("Vip", closeVip);
 
   return (
     <LuxuryReservationModal
@@ -97,23 +99,26 @@ export function VipBookingModal() {
         className="flex flex-col gap-3 md:min-h-0 md:flex-1 md:justify-between md:gap-2.5 lg:gap-3"
         onSubmit={(e) => {
           e.preventDefault();
-          closeVip();
+          submit(e.currentTarget, "vip");
         }}
+        noValidate
       >
         <div className="flex flex-col gap-3 md:gap-2.5 lg:gap-3">
-          <PillFull label={t("name")} name="name" placeholder={t("namePh")} />
-          <PillFull label={t("phone")} name="phone" type="tel" placeholder={t("phonePh")} />
+          <PillFull label={t("name")} name="name" placeholder={t("namePh")} required autoComplete="name" />
+          <PillFull label={t("phone")} name="phone" type="tel" placeholder={t("phonePh")} required autoComplete="tel" />
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 md:gap-2.5 lg:gap-3">
             <PillField
               label={t("date")}
               name="date"
               type="date"
+              required
               icon={<Calendar className="h-4 w-4 shrink-0" strokeWidth={1.5} />}
             />
             <PillField
               label={t("time")}
               name="time"
               type="time"
+              required
               icon={<Clock className="h-4 w-4 shrink-0" strokeWidth={1.5} />}
             />
             <PillField
@@ -121,6 +126,7 @@ export function VipBookingModal() {
               name="guests"
               type="number"
               min={1}
+              required
               placeholder={t("guestsPh")}
               icon={<Users className="h-4 w-4 shrink-0" strokeWidth={1.5} />}
             />
@@ -144,12 +150,22 @@ export function VipBookingModal() {
         </div>
 
         <div className="mt-1 flex flex-col gap-2.5 border-t border-white/5 pt-3 md:mt-0 md:shrink-0 md:pt-3">
+          {formError ? (
+            <p className="text-xs text-red-400" role="alert">
+              {formError}
+            </p>
+          ) : null}
           <button
             type="submit"
             className="w-full rounded-full border border-primary/35 bg-white/10 px-8 py-3 text-center text-xs font-bold uppercase tracking-[0.2em] text-white transition hover:bg-white/20 sm:w-auto sm:self-start sm:px-10"
           >
-            {t("submit")}
+            {saved ? t("savedLabel") : t("submit")}
           </button>
+          {saved ? (
+            <p className="text-xs text-primary/90" role="status">
+              {t("successHint")}
+            </p>
+          ) : null}
         </div>
       </form>
     </LuxuryReservationModal>

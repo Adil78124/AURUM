@@ -71,7 +71,7 @@ export function Header() {
           <button
             type="button"
             onClick={openBooking}
-            className="hidden whitespace-nowrap rounded-sm bg-primary-container px-3 py-2 font-label-caps text-[9px] font-semibold uppercase tracking-[0.12em] text-on-primary transition-all hover:brightness-110 active:scale-[0.98] lg:inline xl:px-4 xl:text-[10px] xl:tracking-[0.14em]"
+            className="hidden whitespace-nowrap rounded-sm bg-primary-container px-3 py-2 font-label-caps text-[9px] font-semibold uppercase tracking-[0.12em] text-on-primary transition-all hover:brightness-110 active:scale-[0.98] md:inline xl:px-4 xl:text-[10px] xl:tracking-[0.14em]"
           >
             {tHeader("bookTable")}
           </button>

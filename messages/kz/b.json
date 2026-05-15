@@ -115,8 +115,18 @@
     "orderRow": "Сіздің тапсырысыңыз",
     "totalRow": "Барлығы",
     "payKaspi": "Kaspi.kz арқылы төлеу",
+    "payCard": "Карта",
+    "payCash": "Қолма-қол",
+    "paymentMethodLabel": "Төлем тәсілі",
+    "submitOrder": "Тапсырыс беру",
+    "savedLabel": "Тапсырыс сақталды ✓",
+    "successTitle": "Тапсырыс қабылданды",
+    "successMessage": "Растау үшін менеджер хабарласады.",
+    "successHint": "Тапсырыс сақталды. /manage/delivery",
+    "validationError": "ТАӘ, телефон, мекенжай және тапсырыс құрамын толтырыңыз.",
     "secureNote": "Kaspi арқылы қауіпсіз төлем",
-    "emptyCartHint": "«Мәзір» бетінде себетке позициялар қосыңыз — тапсырыс автоматты толысады.",
+    "emptyCartTitle": "Себет бос",
+    "emptyCartHint": "«Мәзір» бетінен тағамдар қосыңыз — олар осында автоматты пайда болады.",
     "staticItems": {
       "f1": {
         "name": "Теңіз өнімдері ассортиі"
@@ -154,6 +164,11 @@
         "text": "«Мерейтойды атап өттік — сервис мінсіз, тағамдар жарқын және есте қалады. Міндетті түрде қайтамыз.»"
       }
     }
+  },
+  "BookingNotifications": {
+    "adminTitleStandard": "Жаңа үстел броны",
+    "adminTitleVip": "Жаңа VIP өтінім",
+    "adminMessage": "{name} · {date} {time} · {guests} қонақ"
   },
   "ReviewForm": {
     "title": "Пікір қалдыру",

@@ -1,29 +1,16 @@
 "use client";
 
-import Image from "next/image";
 import type { InputHTMLAttributes } from "react";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
+import { MenuItemImage } from "@/components/menu/MenuItemImage";
 import { useCart } from "@/context/CartContext";
+import { useManageData } from "@/context/ManageDataContext";
+import { useToast } from "@/context/ToastContext";
+import type { DeliveryPaymentMethod } from "@/lib/manage/deliveryTypes";
+import { parseDeliveryOrderForm } from "@/lib/deliveryOrderForm";
 import { formatTenge } from "@/lib/formatTenge";
 import { MotionReveal } from "@/components/motion/MotionReveal";
-
-const STATIC_FALLBACK = [
-  {
-    id: "f1",
-    price: 18500,
-    qty: 1,
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuCnPrWer5jO00RgDFWvYwWxzSKABu7seZEOhmkzDwLpcC_4nyNq36SE2RyPtkSclmIPl6y_eH5tBa-zIJ2uqAiGmX9bowxNQCKHMyrFgCn7ps1MH1bu7TSTKKlCiIkAQXOjQRsIDf7fnd1c4Vh23pBm7IF68kvijhzYmWo3Pb5K1PVPDMqyQDS2D9pM1UBR8Zqy_emYT3Wrz1UXhFdOrmPP3H69z-ZA4e6Aru94cIUA3Y3uA-DTtEMZt_mZmQdgklDeufpJUIfOpOU",
-  },
-  {
-    id: "f2",
-    price: 24500,
-    qty: 1,
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuALncJvu1tmQWDiVhYsQ99b2z_0wVY_kWHDzRZK-2--__o_98J3ySubA3VvWt4so_Q9MjdPU-XLgKv4AjKO4A9AJz66J78igCW7lFO6Y_FmBrnLSWa1b7hxt3CH0vfxIpXO_1wjWaN-7a5j9z-1qhWfi1C9_p4o_2itiF-r__-j6PVs_tspsmG-SGPPC3YID3Uh15YquLLRbPe99NB17AE5qtul_UNXSJjMy-fNrJSiHq2NBFNgvuw5izWMP4PTJoZb5faXk9pNrXk",
-  },
-] as const;
 
 function Field({
   label,
@@ -45,36 +32,67 @@ function Field({
 }
 
 export function DeliveryForm() {
-  const { lines, totalTenge, setQuantity } = useCart();
+  const { lines, totalTenge, setQuantity, removeLine } = useCart();
+  const { delivery } = useManageData();
+  const { showToast } = useToast();
   const [promo, setPromo] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState<DeliveryPaymentMethod>("kaspi");
+  const [formError, setFormError] = useState<string | null>(null);
+  const [saved, setSaved] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
   const t = useTranslations("DeliveryForm");
   const tMenu = useTranslations("Menu");
   const tCommon = useTranslations("Common");
 
-  const displayLines = useMemo(() => {
-    if (lines.length > 0) {
-      return lines.map((l) => ({
-        id: l.item.id,
-        kind: "menu" as const,
-        priceEach: l.item.priceTenge,
-        qty: l.quantity,
-        image: l.item.imageSrc,
-      }));
-    }
-    return STATIC_FALLBACK.map((r) => ({
-      id: r.id,
-      kind: "static" as const,
-      priceEach: r.price,
-      qty: r.qty,
-      image: r.image,
-    }));
-  }, [lines]);
+  const totalQty = lines.reduce((s, l) => s + l.quantity, 0);
+  const subtotal = totalTenge;
+  const deliveryPrice = 0;
+  const total = subtotal + deliveryPrice;
+  const cartEmpty = lines.length === 0;
 
-  const totalQty = displayLines.reduce((s, l) => s + l.qty, 0);
-  const total = useMemo(() => {
-    if (lines.length > 0) return totalTenge;
-    return displayLines.reduce((s, l) => s + l.priceEach * l.qty, 0);
-  }, [lines.length, totalTenge, displayLines]);
+  const orderLines = useMemo(
+    () =>
+      lines.map((l) => ({
+        id: l.item.id,
+        title: l.item.title ?? tMenu(`items.${l.item.id}.name`),
+        quantity: l.quantity,
+        price: l.item.priceTenge,
+      })),
+    [lines, tMenu],
+  );
+
+  const submitOrder = (method: DeliveryPaymentMethod) => {
+    const form = formRef.current;
+    if (!form) return;
+    setPaymentMethod(method);
+    setFormError(null);
+    if (cartEmpty) {
+      setFormError(t("emptyCartHint"));
+      return;
+    }
+    const input = parseDeliveryOrderForm(
+      form,
+      orderLines,
+      { subtotal, deliveryPrice, total },
+      method,
+      promo,
+    );
+    if (!input) {
+      setFormError(t("validationError"));
+      return;
+    }
+    delivery.addOrder(input);
+    showToast({
+      title: t("successTitle"),
+      message: t("successMessage"),
+      durationMs: 7000,
+    });
+    setSaved(true);
+    form.reset();
+    setPromo("");
+    lines.forEach((l) => removeLine(l.item.id));
+    window.setTimeout(() => setSaved(false), 8000);
+  };
 
   return (
     <section id="oformlenie-zakaza" className="scroll-mt-28 bg-[#0a0a0a] py-section-gap">
@@ -87,8 +105,13 @@ export function DeliveryForm() {
             <p className="mt-2 text-center text-sm text-zinc-600">{t("intro")}</p>
           </div>
           <form
+            ref={formRef}
             className="grid grid-cols-1 gap-0 lg:grid-cols-2"
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={(e) => {
+              e.preventDefault();
+              submitOrder(paymentMethod);
+            }}
+            noValidate
           >
             <MotionReveal variant="fadeUp" className="space-y-10 border-zinc-200 px-6 py-8 md:px-10 md:py-10 lg:border-r">
               <div>
@@ -97,7 +120,7 @@ export function DeliveryForm() {
                 </h3>
                 <div className="space-y-6">
                   <Field label={t("fio")} name="fio" required placeholder={t("fioPh")} />
-                  <Field label={t("phone")} name="phone" type="tel" placeholder={t("phonePh")} />
+                  <Field label={t("phone")} name="phone" type="tel" required placeholder={t("phonePh")} />
                   <Field label={t("email")} name="email" type="email" placeholder={t("emailPh")} />
                 </div>
               </div>
@@ -106,7 +129,7 @@ export function DeliveryForm() {
                   {t("deliveryHeading")}
                 </h3>
                 <div className="space-y-6">
-                  <Field label={t("street")} name="street" placeholder={t("streetPh")} />
+                  <Field label={t("street")} name="street" required placeholder={t("streetPh")} />
                   <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
                     <Field label={t("intercom")} name="intercom" placeholder={t("intercomPh")} />
                     <Field label={t("apt")} name="apt" placeholder={t("aptPh")} />
@@ -142,50 +165,53 @@ export function DeliveryForm() {
 
             <MotionReveal variant="slideRight" className="bg-[#eceae4] px-6 py-8 md:px-10 md:py-10">
               <h3 className="mb-6 text-lg font-bold text-zinc-900">{t("orderTitle", { count: totalQty })}</h3>
-              <div className="space-y-5">
-                {displayLines.map((row) => (
-                  <div key={row.id} className="flex gap-4 rounded-lg bg-white/80 p-3 shadow-sm">
-                    <div className="relative h-16 w-20 shrink-0 overflow-hidden rounded-md">
-                      <Image src={row.image} alt="" fill className="object-cover" sizes="80px" />
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <p className="truncate font-semibold text-zinc-900">
-                        {row.kind === "static"
-                          ? t(`staticItems.${row.id}.name`)
-                          : tMenu(`items.${row.id}.name`)}
-                      </p>
-                      <div className="mt-2 flex items-center gap-3">
-                        <button
-                          type="button"
-                          disabled={lines.length === 0}
-                          className="h-8 w-8 rounded border border-zinc-300 text-zinc-700 hover:bg-zinc-100 disabled:cursor-not-allowed disabled:opacity-40"
-                          onClick={() => {
-                            if (lines.length > 0) setQuantity(row.id, row.qty - 1);
-                          }}
-                          aria-label={tCommon("less")}
-                        >
-                          −
-                        </button>
-                        <span className="w-6 text-center text-sm font-semibold">{row.qty}</span>
-                        <button
-                          type="button"
-                          disabled={lines.length === 0}
-                          className="h-8 w-8 rounded border border-zinc-300 text-zinc-700 hover:bg-zinc-100 disabled:cursor-not-allowed disabled:opacity-40"
-                          onClick={() => {
-                            if (lines.length > 0) setQuantity(row.id, row.qty + 1);
-                          }}
-                          aria-label={tCommon("more")}
-                        >
-                          +
-                        </button>
-                        <span className="ml-auto text-sm font-semibold text-zinc-900">
-                          {formatTenge(row.priceEach * row.qty)}
-                        </span>
+              {cartEmpty ? (
+                <div className="rounded-lg border border-dashed border-zinc-300 bg-white/50 px-4 py-10 text-center">
+                  <p className="text-sm font-medium text-zinc-600">{t("emptyCartTitle")}</p>
+                  <p className="mt-2 text-xs text-zinc-500">{t("emptyCartHint")}</p>
+                </div>
+              ) : (
+                <div className="space-y-5">
+                  {lines.map((line) => (
+                    <div key={line.item.id} className="flex gap-4 rounded-lg bg-white/80 p-3 shadow-sm">
+                      <div className="relative h-16 w-20 shrink-0 overflow-hidden rounded-md">
+                        <MenuItemImage
+                          src={line.item.imageSrc}
+                          alt={line.item.title ?? tMenu(`items.${line.item.id}.imageAlt`)}
+                          sizes="80px"
+                        />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="truncate font-semibold text-zinc-900">
+                          {line.item.title ?? tMenu(`items.${line.item.id}.name`)}
+                        </p>
+                        <div className="mt-2 flex items-center gap-3">
+                          <button
+                            type="button"
+                            className="h-8 w-8 rounded border border-zinc-300 text-zinc-700 hover:bg-zinc-100"
+                            onClick={() => setQuantity(line.item.id, line.quantity - 1)}
+                            aria-label={tCommon("less")}
+                          >
+                            −
+                          </button>
+                          <span className="w-6 text-center text-sm font-semibold">{line.quantity}</span>
+                          <button
+                            type="button"
+                            className="h-8 w-8 rounded border border-zinc-300 text-zinc-700 hover:bg-zinc-100"
+                            onClick={() => setQuantity(line.item.id, line.quantity + 1)}
+                            aria-label={tCommon("more")}
+                          >
+                            +
+                          </button>
+                          <span className="ml-auto text-sm font-semibold text-zinc-900">
+                            {formatTenge(line.item.priceTenge * line.quantity)}
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
               <div className="mt-6">
                 <label className="text-xs font-semibold uppercase tracking-widest text-[#6b5a48]">
                   {t("promo")}
@@ -204,25 +230,66 @@ export function DeliveryForm() {
                 </div>
                 <div className="flex justify-between">
                   <span>{t("orderRow")}</span>
-                  <span>{formatTenge(total)}</span>
+                  <span>{formatTenge(subtotal)}</span>
                 </div>
                 <div className="flex justify-between text-base font-bold text-zinc-900">
                   <span>{t("totalRow")}</span>
                   <span>{formatTenge(total)}</span>
                 </div>
               </div>
+              <p className="mt-6 text-xs font-semibold uppercase tracking-widest text-[#6b5a48]">
+                {t("paymentMethodLabel")}
+              </p>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {(
+                  [
+                    { id: "kaspi" as const, label: t("payKaspi") },
+                    { id: "card" as const, label: t("payCard") },
+                    { id: "cash" as const, label: t("payCash") },
+                  ] as const
+                ).map((m) => (
+                  <button
+                    key={m.id}
+                    type="button"
+                    onClick={() => setPaymentMethod(m.id)}
+                    className={`rounded-full px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider transition ${
+                      paymentMethod === m.id
+                        ? "bg-zinc-800 text-white ring-2 ring-[#c08431]"
+                        : "bg-white text-zinc-600 ring-1 ring-zinc-300"
+                    }`}
+                  >
+                    {m.label}
+                  </button>
+                ))}
+              </div>
+              {formError ? (
+                <p className="mt-4 text-sm text-red-600" role="alert">
+                  {formError}
+                </p>
+              ) : null}
+              {saved ? (
+                <p className="mt-4 text-sm font-medium text-emerald-700" role="status">
+                  {t("successHint")}
+                </p>
+              ) : null}
               <button
-                type="button"
-                className="mt-8 flex w-full items-center justify-center gap-2 bg-[#00AEEF] py-4 text-sm font-bold uppercase tracking-widest text-white shadow-lg transition hover:bg-[#0095cc]"
+                type="submit"
+                disabled={cartEmpty}
+                className="mt-6 flex w-full items-center justify-center gap-2 bg-[#00AEEF] py-4 text-sm font-bold uppercase tracking-widest text-white shadow-lg transition hover:bg-[#0095cc] disabled:cursor-not-allowed disabled:opacity-50"
+                onClick={() => setPaymentMethod("kaspi")}
               >
-                {t("payKaspi")}
+                {saved ? t("savedLabel") : t("payKaspi")}
+              </button>
+              <button
+                type="submit"
+                disabled={cartEmpty}
+                className="mt-3 w-full rounded-md border border-zinc-400 bg-zinc-800 py-3 text-xs font-bold uppercase tracking-widest text-white transition hover:bg-zinc-700 disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                {t("submitOrder")}
               </button>
               <p className="mt-2 text-center text-[10px] uppercase tracking-widest text-zinc-500">
                 {t("secureNote")}
               </p>
-              {lines.length === 0 ? (
-                <p className="mt-4 text-center text-xs text-zinc-500">{t("emptyCartHint")}</p>
-              ) : null}
             </MotionReveal>
           </form>
         </div>
