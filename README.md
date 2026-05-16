@@ -1,36 +1,239 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AURUM — сайт ресторана
 
-## Getting Started
+Готовый сайт на Next.js с тремя языками (русский, казахский, английский) и простой панелью управления в браузере (данные сохраняются на вашем компьютере в `localStorage`).
 
-First, run the development server:
+---
+
+## Быстрый запуск
+
+1. Откройте терминал в папке `web` (см. ниже, как это сделать).
+2. Введите: `npm install`
+3. Введите: `npm run dev`
+4. Откройте в браузере: [http://localhost:3000/ru](http://localhost:3000/ru)
+
+---
+
+## 1. Скачать проект с GitHub
+
+1. Откройте страницу репозитория на GitHub.
+2. Нажмите зелёную кнопку **Code** → **Download ZIP**.
+3. Распакуйте архив в удобную папку (например, `Документы\AURUM`).
+
+Или, если установлен Git:
+
+```bash
+git clone <ссылка-на-репозиторий>
+```
+
+---
+
+## 2. Открыть папку проекта
+
+Внутри распакованного архива найдите папку **`web`** — в ней лежит сам сайт.
+
+Путь будет примерно такой: `AURUM\web`
+
+Дальнейшие команды выполняются **именно из папки `web`**.
+
+### Как открыть терминал в папке `web`
+
+**Windows**
+
+1. Откройте папку `web` в проводнике.
+2. В адресной строке введите `cmd` или `powershell` и нажмите Enter.
+
+**macOS**
+
+1. Откройте папку `web` в Finder.
+2. Правый клик → «Службы» → «Новый терминал в папке» (или через Terminal: `cd` и перетащите папку).
+
+---
+
+## 3. Установить Node.js
+
+Сайт запускается через Node.js.
+
+1. Перейдите на [https://nodejs.org](https://nodejs.org)
+2. Скачайте версию **LTS** (рекомендуется).
+3. Установите с настройками по умолчанию.
+4. Перезапустите терминал.
+
+Проверка:
+
+```bash
+node -v
+npm -v
+```
+
+Должны появиться номера версий (например `v22.x` и `10.x`).
+
+---
+
+## 4. Установить зависимости
+
+В терминале, находясь в папке `web`:
+
+```bash
+npm install
+```
+
+Подождите, пока загрузятся пакеты (интернет должен быть включён).
+
+---
+
+## 5. Запустить сайт
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Когда появится сообщение вроде `Ready`, сайт работает на вашем компьютере.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 6. Какие ссылки открыть
 
-## Learn More
+| Ссылка | Назначение |
+|--------|------------|
+| [http://localhost:3000/ru](http://localhost:3000/ru) | Сайт на русском |
+| [http://localhost:3000/kz](http://localhost:3000/kz) | Сайт на казахском |
+| [http://localhost:3000/en](http://localhost:3000/en) | Сайт на английском |
+| [http://localhost:3000/manage](http://localhost:3000/manage) | Панель управления |
 
-To learn more about Next.js, take a look at the following resources:
+### Страницы сайта (пример для русского)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Главная: `/ru`
+- О ресторане: `/ru/about`
+- Меню: `/ru/menu`
+- Интерьер: `/ru/interior`
+- Доставка: `/ru/delivery`
+- Отзывы: `/ru/reviews`
+- Контакты: `/ru/contacts`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Панель управления (`/manage`)
 
-## Deploy on Vercel
+| Раздел | Ссылка | Что делает |
+|--------|--------|------------|
+| Главная | `/manage` | Обзор |
+| Меню | `/manage/menu` | Редактирование блюд |
+| Брони | `/manage/reservations` | Заявки на столик |
+| Доставка | `/manage/delivery` | Заказы доставки |
+| Отзывы | `/manage/reviews` | Модерация отзывов |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+> **Важно:** админка не требует пароля — это демо-панель для локальной работы. Не выкладывайте сайт в интернет без защиты, если не настроите доступ отдельно.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Демо-данные при первом запуске
+
+При первом открытии сайт уже заполнен демонстрационными данными:
+
+- меню с блюдами и ценами;
+- отзывы;
+- фото интерьера в папке `public`;
+- контакты и FAQ на страницах.
+
+Если вы что-то меняли в браузере и хотите «как в начале» — в разделе **Меню** админки есть сброс к исходному меню; остальное можно очистить через инструменты разработчика браузера (Application → Local Storage).
+
+---
+
+## Telegram (необязательно)
+
+Если нужны уведомления о брони в Telegram:
+
+1. Скопируйте файл `.env.example` в `.env.local` в папке `web`.
+2. Заполните (без кавычек):
+
+```
+NEXT_PUBLIC_TELEGRAM_BOT_TOKEN=ваш_токен_бота
+NEXT_PUBLIC_TELEGRAM_CHAT_ID=ваш_chat_id
+```
+
+3. Перезапустите `npm run dev`.
+
+**Не загружайте `.env.local` на GitHub** — там секреты.
+
+---
+
+## Сборка для проверки (по желанию)
+
+```bash
+npm run build
+npm run start
+```
+
+После `npm run start` сайт снова на [http://localhost:3000/ru](http://localhost:3000/ru).
+
+---
+
+## Что делать, если сайт не запускается
+
+### «npm не является внутренней или внешней командой»
+
+- Установите Node.js с [nodejs.org](https://nodejs.org) (раздел 3).
+- Закройте и снова откройте терминал.
+
+### Порт 3000 занят
+
+- Закройте старые окна терминала, где уже был запущен `npm run dev`.
+- Или запустите на другом порту:
+
+```bash
+npm run dev -- -p 3001
+```
+
+Тогда откройте [http://localhost:3001/ru](http://localhost:3001/ru).
+
+### Сайт «пустой» или белая страница
+
+- Откройте именно [http://localhost:3000/ru](http://localhost:3000/ru), а не только `http://localhost:3000`.
+- Убедитесь, что в терминале нет красных ошибок.
+- Попробуйте другой браузер или режим инкогнито.
+
+### Изменения в админке не видны на сайте
+
+- Обновите страницу сайта (F5).
+- Админка и сайт должны быть на одном домене (`localhost:3000`).
+
+---
+
+## Структура проекта
+
+```
+web/
+  src/
+    app/          — страницы
+    components/   — блоки интерфейса
+    data/         — исходные данные (меню, FAQ, контакты)
+    lib/          — вспомогательный код
+    i18n/         — языки
+  public/         — картинки
+  messages/       — тексты переводов
+  package.json
+  README.md
+  .env.example
+  .gitignore
+```
+
+---
+
+## Команды npm
+
+| Команда | Описание |
+|---------|----------|
+| `npm run dev` | Запуск для разработки |
+| `npm run build` | Сборка проекта |
+| `npm run start` | Запуск собранной версии |
+| `npm run lint` | Проверка кода |
+
+---
+
+## Перед загрузкой на GitHub
+
+Не добавляйте в репозиторий:
+
+- папку `node_modules`
+- папку `.next`
+- файл `.env.local`
+
+Они уже перечислены в `.gitignore`.
