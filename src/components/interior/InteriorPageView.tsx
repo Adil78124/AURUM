@@ -22,8 +22,8 @@ export function InteriorPageView() {
   const barBullets = [t("bar.bullet1"), t("bar.bullet2")];
 
   return (
-    <main className="interior-page-bg font-body-md text-on-background">
-      <header className="relative flex h-[819px] items-end overflow-hidden px-margin-mobile pb-section-gap md:px-margin-desktop">
+    <main className="interior-page-bg w-full max-w-full overflow-x-clip font-body-md text-on-background">
+      <header className="relative flex h-[min(819px,100svh)] w-full max-w-full items-end overflow-hidden px-margin-mobile pb-section-gap md:h-[819px] md:px-margin-desktop">
         <div className="absolute inset-0 z-0">
           <InteriorParallaxMedia className="absolute inset-0 h-full w-full" range={26}>
             <div className="relative h-full min-h-[100vh] w-full">
@@ -41,10 +41,10 @@ export function InteriorPageView() {
           <div className="absolute inset-0 bg-[#2c1810]/25 mix-blend-multiply" />
           <div className="interior-image-vignette pointer-events-none absolute inset-0" />
         </div>
-        <InteriorReveal className="relative z-10 max-w-3xl">
-          <h1 className="mb-6 font-display-lg text-display-lg text-on-surface">
-            {t("hero.title")}{" "}
-            <span className="font-title-italic italic text-primary">{t("hero.titleItalic")}</span>
+        <InteriorReveal className="relative z-10 w-full min-w-0 max-w-3xl">
+          <h1 className="mb-6 max-w-full break-words font-display-lg text-display-lg-mobile text-balance text-on-surface md:text-display-md lg:text-display-lg">
+            <span className="block sm:inline">{t("hero.title")}</span>{" "}
+            <span className="block font-title-italic italic text-primary sm:inline">{t("hero.titleItalic")}</span>
           </h1>
           <p className="max-w-xl font-body-lg text-body-lg text-on-surface-variant">{t("hero.description")}</p>
         </InteriorReveal>

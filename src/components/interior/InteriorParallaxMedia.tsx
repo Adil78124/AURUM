@@ -27,7 +27,8 @@ export function InteriorParallaxMedia({ children, className, range = 18 }: Props
     const progress = (vh * 0.88 - rect.top) / (vh + rect.height);
     const clamped = Math.min(1, Math.max(0, progress));
     const y = (clamped - 0.5) * 2 * range;
-    inner.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0) scale(1.05)`;
+    const scale = window.matchMedia("(max-width: 767px)").matches ? 1.02 : 1.05;
+    inner.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0) scale(${scale})`;
   }, [range]);
 
   useEffect(() => {
@@ -45,7 +46,7 @@ export function InteriorParallaxMedia({ children, className, range = 18 }: Props
       <div
         ref={innerRef}
         className="h-full w-full origin-center will-change-transform"
-        style={{ transform: "translate3d(0,0,0) scale(1.05)" }}
+        style={{ transform: "translate3d(0,0,0) scale(1.02)" }}
       >
         {children}
       </div>

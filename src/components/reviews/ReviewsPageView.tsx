@@ -10,16 +10,18 @@ export function ReviewsPageView() {
   const t = useTranslations("Reviews");
 
   return (
-    <main className="mx-auto max-w-container-max px-margin-mobile pb-section-gap pt-32 md:px-margin-desktop">
+    <main className="mx-auto w-full max-w-container-max overflow-x-clip px-margin-mobile pb-section-gap pt-32 md:px-margin-desktop">
       <motion.div
-        className="mb-section-gap text-center"
+        className="mb-section-gap w-full min-w-0 max-w-full text-center"
         initial={reduced ? { opacity: 1 } : { opacity: 0, y: 18 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={viewportOnce}
         transition={{ duration: reduced ? 0.3 : 0.8, ease: premiumEase }}
       >
         <p className="mb-2 font-label-caps text-label-caps uppercase text-primary">{t("eyebrow")}</p>
-        <h1 className="font-display-lg text-display-lg text-on-surface">{t("title")}</h1>
+        <h1 className="mx-auto max-w-full break-words font-display-lg text-display-lg-mobile text-balance text-on-surface md:text-display-md lg:text-display-lg">
+          {t("title")}
+        </h1>
         <div className="mx-auto mt-6 h-px w-24 bg-primary/40" />
       </motion.div>
 

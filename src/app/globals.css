@@ -92,6 +92,16 @@
   --text-headline-lg-mobile--line-height: 44px;
   --text-headline-lg-mobile--font-weight: 600;
 
+  --text-display-lg-mobile: 38px;
+  --text-display-lg-mobile--line-height: 44px;
+  --text-display-lg-mobile--letter-spacing: -0.015em;
+  --text-display-lg-mobile--font-weight: 700;
+
+  --text-display-md: 52px;
+  --text-display-md--line-height: 58px;
+  --text-display-md--letter-spacing: -0.018em;
+  --text-display-md--font-weight: 700;
+
   --text-display-lg: 72px;
   --text-display-lg--line-height: 80px;
   --text-display-lg--letter-spacing: -0.02em;
