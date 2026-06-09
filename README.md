@@ -145,8 +145,8 @@ npm run dev
 2. Заполните (без кавычек):
 
 ```
-NEXT_PUBLIC_TELEGRAM_BOT_TOKEN=ваш_токен_бота
-NEXT_PUBLIC_TELEGRAM_CHAT_ID=ваш_chat_id
+TELEGRAM_BOT_TOKEN=ваш_токен_бота
+TELEGRAM_CHAT_ID=ваш_chat_id
 ```
 
 3. Перезапустите `npm run dev`.
